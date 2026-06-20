@@ -136,8 +136,6 @@ export const likePost = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { error } = await context.supabase.from("post_likes").insert({ post_id: data.postId, user_id: context.userId });
     if (!error) {
-      await context.supabase.rpc("noop").catch(() => null);
-      // increment counter
       const { data: cur } = await context.supabase.from("community_posts").select("likes_count").eq("id", data.postId).maybeSingle();
       await context.supabase.from("community_posts").update({ likes_count: (cur?.likes_count ?? 0) + 1 }).eq("id", data.postId);
     }
