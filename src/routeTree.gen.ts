@@ -9,38 +9,482 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SponsorsRouteImport } from './routes/sponsors'
+import { Route as ScholarshipsRouteImport } from './routes/scholarships'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as ItAcademyRouteImport } from './routes/it-academy'
+import { Route as IslamicAcademyRouteImport } from './routes/islamic-academy'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as CounselingRouteImport } from './routes/counseling'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as CbtRouteImport } from './routes/cbt'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardCbtRouteRouteImport } from './routes/_authenticated/dashboard/cbt/route'
+import { Route as AuthenticatedDashboardWalletIndexRouteImport } from './routes/_authenticated/dashboard/wallet/index'
+import { Route as AuthenticatedDashboardProfileIndexRouteImport } from './routes/_authenticated/dashboard/profile/index'
+import { Route as AuthenticatedDashboardLeaderboardIndexRouteImport } from './routes/_authenticated/dashboard/leaderboard/index'
+import { Route as AuthenticatedDashboardCoursesIndexRouteImport } from './routes/_authenticated/dashboard/courses/index'
+import { Route as AuthenticatedDashboardCounselingIndexRouteImport } from './routes/_authenticated/dashboard/counseling/index'
+import { Route as AuthenticatedDashboardCommunityIndexRouteImport } from './routes/_authenticated/dashboard/community/index'
+import { Route as AuthenticatedDashboardCertificatesIndexRouteImport } from './routes/_authenticated/dashboard/certificates/index'
+import { Route as AuthenticatedDashboardCbtIndexRouteImport } from './routes/_authenticated/dashboard/cbt/index'
+import { Route as AuthenticatedDashboardAdminIndexRouteImport } from './routes/_authenticated/dashboard/admin/index'
+import { Route as AuthenticatedDashboardCbtSlugRouteImport } from './routes/_authenticated/dashboard/cbt/$slug'
 
+const SponsorsRoute = SponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScholarshipsRoute = ScholarshipsRouteImport.update({
+  id: '/scholarships',
+  path: '/scholarships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItAcademyRoute = ItAcademyRouteImport.update({
+  id: '/it-academy',
+  path: '/it-academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IslamicAcademyRoute = IslamicAcademyRouteImport.update({
+  id: '/islamic-academy',
+  path: '/islamic-academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CounselingRoute = CounselingRouteImport.update({
+  id: '/counseling',
+  path: '/counseling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CbtRoute = CbtRouteImport.update({
+  id: '/cbt',
+  path: '/cbt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardRouteRoute =
+  AuthenticatedDashboardRouteRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCbtRouteRoute =
+  AuthenticatedDashboardCbtRouteRouteImport.update({
+    id: '/cbt',
+    path: '/cbt',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardWalletIndexRoute =
+  AuthenticatedDashboardWalletIndexRouteImport.update({
+    id: '/wallet/',
+    path: '/wallet/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardProfileIndexRoute =
+  AuthenticatedDashboardProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardLeaderboardIndexRoute =
+  AuthenticatedDashboardLeaderboardIndexRouteImport.update({
+    id: '/leaderboard/',
+    path: '/leaderboard/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCoursesIndexRoute =
+  AuthenticatedDashboardCoursesIndexRouteImport.update({
+    id: '/courses/',
+    path: '/courses/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCounselingIndexRoute =
+  AuthenticatedDashboardCounselingIndexRouteImport.update({
+    id: '/counseling/',
+    path: '/counseling/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCommunityIndexRoute =
+  AuthenticatedDashboardCommunityIndexRouteImport.update({
+    id: '/community/',
+    path: '/community/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCertificatesIndexRoute =
+  AuthenticatedDashboardCertificatesIndexRouteImport.update({
+    id: '/certificates/',
+    path: '/certificates/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCbtIndexRoute =
+  AuthenticatedDashboardCbtIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardCbtRouteRoute,
+  } as any)
+const AuthenticatedDashboardAdminIndexRoute =
+  AuthenticatedDashboardAdminIndexRouteImport.update({
+    id: '/admin/',
+    path: '/admin/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardCbtSlugRoute =
+  AuthenticatedDashboardCbtSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => AuthenticatedDashboardCbtRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
+  '/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
+  '/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
+  '/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
+  '/dashboard/counseling/': typeof AuthenticatedDashboardCounselingIndexRoute
+  '/dashboard/courses/': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
+  '/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/dashboard/admin': typeof AuthenticatedDashboardAdminIndexRoute
+  '/dashboard/cbt': typeof AuthenticatedDashboardCbtIndexRoute
+  '/dashboard/certificates': typeof AuthenticatedDashboardCertificatesIndexRoute
+  '/dashboard/community': typeof AuthenticatedDashboardCommunityIndexRoute
+  '/dashboard/counseling': typeof AuthenticatedDashboardCounselingIndexRoute
+  '/dashboard/courses': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/dashboard/leaderboard': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/profile': typeof AuthenticatedDashboardProfileIndexRoute
+  '/dashboard/wallet': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/_authenticated/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
+  '/_authenticated/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
+  '/_authenticated/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
+  '/_authenticated/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
+  '/_authenticated/dashboard/counseling/': typeof AuthenticatedDashboardCounselingIndexRoute
+  '/_authenticated/dashboard/courses/': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/_authenticated/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/_authenticated/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
+  '/_authenticated/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
+    | '/dashboard'
+    | '/dashboard/cbt'
+    | '/dashboard/'
+    | '/dashboard/cbt/$slug'
+    | '/dashboard/admin/'
+    | '/dashboard/cbt/'
+    | '/dashboard/certificates/'
+    | '/dashboard/community/'
+    | '/dashboard/counseling/'
+    | '/dashboard/courses/'
+    | '/dashboard/leaderboard/'
+    | '/dashboard/profile/'
+    | '/dashboard/wallet/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
+    | '/dashboard'
+    | '/dashboard/cbt/$slug'
+    | '/dashboard/admin'
+    | '/dashboard/cbt'
+    | '/dashboard/certificates'
+    | '/dashboard/community'
+    | '/dashboard/counseling'
+    | '/dashboard/courses'
+    | '/dashboard/leaderboard'
+    | '/dashboard/profile'
+    | '/dashboard/wallet'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/cbt'
+    | '/_authenticated/dashboard/'
+    | '/_authenticated/dashboard/cbt/$slug'
+    | '/_authenticated/dashboard/admin/'
+    | '/_authenticated/dashboard/cbt/'
+    | '/_authenticated/dashboard/certificates/'
+    | '/_authenticated/dashboard/community/'
+    | '/_authenticated/dashboard/counseling/'
+    | '/_authenticated/dashboard/courses/'
+    | '/_authenticated/dashboard/leaderboard/'
+    | '/_authenticated/dashboard/profile/'
+    | '/_authenticated/dashboard/wallet/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
+  CbtRoute: typeof CbtRoute
+  CommunityRoute: typeof CommunityRoute
+  ContactRoute: typeof ContactRoute
+  CounselingRoute: typeof CounselingRoute
+  CoursesRoute: typeof CoursesRoute
+  FaqRoute: typeof FaqRoute
+  IslamicAcademyRoute: typeof IslamicAcademyRoute
+  ItAcademyRoute: typeof ItAcademyRoute
+  NewsRoute: typeof NewsRoute
+  ScholarshipsRoute: typeof ScholarshipsRoute
+  SponsorsRoute: typeof SponsorsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sponsors': {
+      id: '/sponsors'
+      path: '/sponsors'
+      fullPath: '/sponsors'
+      preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scholarships': {
+      id: '/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof ScholarshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/it-academy': {
+      id: '/it-academy'
+      path: '/it-academy'
+      fullPath: '/it-academy'
+      preLoaderRoute: typeof ItAcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/islamic-academy': {
+      id: '/islamic-academy'
+      path: '/islamic-academy'
+      fullPath: '/islamic-academy'
+      preLoaderRoute: typeof IslamicAcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/counseling': {
+      id: '/counseling'
+      path: '/counseling'
+      fullPath: '/counseling'
+      preLoaderRoute: typeof CounselingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cbt': {
+      id: '/cbt'
+      path: '/cbt'
+      fullPath: '/cbt'
+      preLoaderRoute: typeof CbtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +492,186 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/cbt': {
+      id: '/_authenticated/dashboard/cbt'
+      path: '/cbt'
+      fullPath: '/dashboard/cbt'
+      preLoaderRoute: typeof AuthenticatedDashboardCbtRouteRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/wallet/': {
+      id: '/_authenticated/dashboard/wallet/'
+      path: '/wallet'
+      fullPath: '/dashboard/wallet/'
+      preLoaderRoute: typeof AuthenticatedDashboardWalletIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/profile/': {
+      id: '/_authenticated/dashboard/profile/'
+      path: '/profile'
+      fullPath: '/dashboard/profile/'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/leaderboard/': {
+      id: '/_authenticated/dashboard/leaderboard/'
+      path: '/leaderboard'
+      fullPath: '/dashboard/leaderboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardLeaderboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/courses/': {
+      id: '/_authenticated/dashboard/courses/'
+      path: '/courses'
+      fullPath: '/dashboard/courses/'
+      preLoaderRoute: typeof AuthenticatedDashboardCoursesIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/counseling/': {
+      id: '/_authenticated/dashboard/counseling/'
+      path: '/counseling'
+      fullPath: '/dashboard/counseling/'
+      preLoaderRoute: typeof AuthenticatedDashboardCounselingIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/community/': {
+      id: '/_authenticated/dashboard/community/'
+      path: '/community'
+      fullPath: '/dashboard/community/'
+      preLoaderRoute: typeof AuthenticatedDashboardCommunityIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/certificates/': {
+      id: '/_authenticated/dashboard/certificates/'
+      path: '/certificates'
+      fullPath: '/dashboard/certificates/'
+      preLoaderRoute: typeof AuthenticatedDashboardCertificatesIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/cbt/': {
+      id: '/_authenticated/dashboard/cbt/'
+      path: '/'
+      fullPath: '/dashboard/cbt/'
+      preLoaderRoute: typeof AuthenticatedDashboardCbtIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardCbtRouteRoute
+    }
+    '/_authenticated/dashboard/admin/': {
+      id: '/_authenticated/dashboard/admin/'
+      path: '/admin'
+      fullPath: '/dashboard/admin/'
+      preLoaderRoute: typeof AuthenticatedDashboardAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/cbt/$slug': {
+      id: '/_authenticated/dashboard/cbt/$slug'
+      path: '/$slug'
+      fullPath: '/dashboard/cbt/$slug'
+      preLoaderRoute: typeof AuthenticatedDashboardCbtSlugRouteImport
+      parentRoute: typeof AuthenticatedDashboardCbtRouteRoute
+    }
   }
 }
 
+interface AuthenticatedDashboardCbtRouteRouteChildren {
+  AuthenticatedDashboardCbtSlugRoute: typeof AuthenticatedDashboardCbtSlugRoute
+  AuthenticatedDashboardCbtIndexRoute: typeof AuthenticatedDashboardCbtIndexRoute
+}
+
+const AuthenticatedDashboardCbtRouteRouteChildren: AuthenticatedDashboardCbtRouteRouteChildren =
+  {
+    AuthenticatedDashboardCbtSlugRoute: AuthenticatedDashboardCbtSlugRoute,
+    AuthenticatedDashboardCbtIndexRoute: AuthenticatedDashboardCbtIndexRoute,
+  }
+
+const AuthenticatedDashboardCbtRouteRouteWithChildren =
+  AuthenticatedDashboardCbtRouteRoute._addFileChildren(
+    AuthenticatedDashboardCbtRouteRouteChildren,
+  )
+
+interface AuthenticatedDashboardRouteRouteChildren {
+  AuthenticatedDashboardCbtRouteRoute: typeof AuthenticatedDashboardCbtRouteRouteWithChildren
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardAdminIndexRoute: typeof AuthenticatedDashboardAdminIndexRoute
+  AuthenticatedDashboardCertificatesIndexRoute: typeof AuthenticatedDashboardCertificatesIndexRoute
+  AuthenticatedDashboardCommunityIndexRoute: typeof AuthenticatedDashboardCommunityIndexRoute
+  AuthenticatedDashboardCounselingIndexRoute: typeof AuthenticatedDashboardCounselingIndexRoute
+  AuthenticatedDashboardCoursesIndexRoute: typeof AuthenticatedDashboardCoursesIndexRoute
+  AuthenticatedDashboardLeaderboardIndexRoute: typeof AuthenticatedDashboardLeaderboardIndexRoute
+  AuthenticatedDashboardProfileIndexRoute: typeof AuthenticatedDashboardProfileIndexRoute
+  AuthenticatedDashboardWalletIndexRoute: typeof AuthenticatedDashboardWalletIndexRoute
+}
+
+const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRouteChildren =
+  {
+    AuthenticatedDashboardCbtRouteRoute:
+      AuthenticatedDashboardCbtRouteRouteWithChildren,
+    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+    AuthenticatedDashboardAdminIndexRoute:
+      AuthenticatedDashboardAdminIndexRoute,
+    AuthenticatedDashboardCertificatesIndexRoute:
+      AuthenticatedDashboardCertificatesIndexRoute,
+    AuthenticatedDashboardCommunityIndexRoute:
+      AuthenticatedDashboardCommunityIndexRoute,
+    AuthenticatedDashboardCounselingIndexRoute:
+      AuthenticatedDashboardCounselingIndexRoute,
+    AuthenticatedDashboardCoursesIndexRoute:
+      AuthenticatedDashboardCoursesIndexRoute,
+    AuthenticatedDashboardLeaderboardIndexRoute:
+      AuthenticatedDashboardLeaderboardIndexRoute,
+    AuthenticatedDashboardProfileIndexRoute:
+      AuthenticatedDashboardProfileIndexRoute,
+    AuthenticatedDashboardWalletIndexRoute:
+      AuthenticatedDashboardWalletIndexRoute,
+  }
+
+const AuthenticatedDashboardRouteRouteWithChildren =
+  AuthenticatedDashboardRouteRoute._addFileChildren(
+    AuthenticatedDashboardRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRouteRoute: typeof AuthenticatedDashboardRouteRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRouteRoute:
+    AuthenticatedDashboardRouteRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
+  CbtRoute: CbtRoute,
+  CommunityRoute: CommunityRoute,
+  ContactRoute: ContactRoute,
+  CounselingRoute: CounselingRoute,
+  CoursesRoute: CoursesRoute,
+  FaqRoute: FaqRoute,
+  IslamicAcademyRoute: IslamicAcademyRoute,
+  ItAcademyRoute: ItAcademyRoute,
+  NewsRoute: NewsRoute,
+  ScholarshipsRoute: ScholarshipsRoute,
+  SponsorsRoute: SponsorsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
