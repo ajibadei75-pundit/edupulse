@@ -9,8 +9,80 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SponsorsRouteImport } from './routes/sponsors'
+import { Route as ScholarshipsRouteImport } from './routes/scholarships'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as ItAcademyRouteImport } from './routes/it-academy'
+import { Route as IslamicAcademyRouteImport } from './routes/islamic-academy'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as CounselingRouteImport } from './routes/counseling'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as CbtRouteImport } from './routes/cbt'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SponsorsRoute = SponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScholarshipsRoute = ScholarshipsRouteImport.update({
+  id: '/scholarships',
+  path: '/scholarships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItAcademyRoute = ItAcademyRouteImport.update({
+  id: '/it-academy',
+  path: '/it-academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IslamicAcademyRoute = IslamicAcademyRouteImport.update({
+  id: '/islamic-academy',
+  path: '/islamic-academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CounselingRoute = CounselingRouteImport.update({
+  id: '/counseling',
+  path: '/counseling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CbtRoute = CbtRouteImport.update({
+  id: '/cbt',
+  path: '/cbt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +91,200 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/cbt': typeof CbtRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/counseling': typeof CounselingRoute
+  '/courses': typeof CoursesRoute
+  '/faq': typeof FaqRoute
+  '/islamic-academy': typeof IslamicAcademyRoute
+  '/it-academy': typeof ItAcademyRoute
+  '/news': typeof NewsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/sponsors': typeof SponsorsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/cbt'
+    | '/community'
+    | '/contact'
+    | '/counseling'
+    | '/courses'
+    | '/faq'
+    | '/islamic-academy'
+    | '/it-academy'
+    | '/news'
+    | '/scholarships'
+    | '/sponsors'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CbtRoute: typeof CbtRoute
+  CommunityRoute: typeof CommunityRoute
+  ContactRoute: typeof ContactRoute
+  CounselingRoute: typeof CounselingRoute
+  CoursesRoute: typeof CoursesRoute
+  FaqRoute: typeof FaqRoute
+  IslamicAcademyRoute: typeof IslamicAcademyRoute
+  ItAcademyRoute: typeof ItAcademyRoute
+  NewsRoute: typeof NewsRoute
+  ScholarshipsRoute: typeof ScholarshipsRoute
+  SponsorsRoute: typeof SponsorsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sponsors': {
+      id: '/sponsors'
+      path: '/sponsors'
+      fullPath: '/sponsors'
+      preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scholarships': {
+      id: '/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof ScholarshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/it-academy': {
+      id: '/it-academy'
+      path: '/it-academy'
+      fullPath: '/it-academy'
+      preLoaderRoute: typeof ItAcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/islamic-academy': {
+      id: '/islamic-academy'
+      path: '/islamic-academy'
+      fullPath: '/islamic-academy'
+      preLoaderRoute: typeof IslamicAcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/counseling': {
+      id: '/counseling'
+      path: '/counseling'
+      fullPath: '/counseling'
+      preLoaderRoute: typeof CounselingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cbt': {
+      id: '/cbt'
+      path: '/cbt'
+      fullPath: '/cbt'
+      preLoaderRoute: typeof CbtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +297,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CbtRoute: CbtRoute,
+  CommunityRoute: CommunityRoute,
+  ContactRoute: ContactRoute,
+  CounselingRoute: CounselingRoute,
+  CoursesRoute: CoursesRoute,
+  FaqRoute: FaqRoute,
+  IslamicAcademyRoute: IslamicAcademyRoute,
+  ItAcademyRoute: ItAcademyRoute,
+  NewsRoute: NewsRoute,
+  ScholarshipsRoute: ScholarshipsRoute,
+  SponsorsRoute: SponsorsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
