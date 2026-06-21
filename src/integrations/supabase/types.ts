@@ -307,6 +307,145 @@ export type Database = {
           },
         ]
       }
+      event_feedback: {
+        Row: {
+          comments: string | null
+          created_at: string
+          email: string | null
+          event_id: string
+          full_name: string | null
+          id: string
+          rating: number
+          user_id: string | null
+        }
+        Insert: {
+          comments?: string | null
+          created_at?: string
+          email?: string | null
+          event_id: string
+          full_name?: string | null
+          id?: string
+          rating: number
+          user_id?: string | null
+        }
+        Update: {
+          comments?: string | null
+          created_at?: string
+          email?: string | null
+          event_id?: string
+          full_name?: string | null
+          id?: string
+          rating?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_feedback_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_registrations: {
+        Row: {
+          created_at: string
+          email: string
+          event_id: string
+          full_name: string
+          id: string
+          phone: string | null
+          responses: Json
+          school: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_id: string
+          full_name: string
+          id?: string
+          phone?: string | null
+          responses?: Json
+          school?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_id?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          responses?: Json
+          school?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          capacity: number | null
+          cover_url: string | null
+          created_at: string
+          created_by: string | null
+          custom_fields: Json
+          description: string | null
+          ends_at: string | null
+          feedback_open: boolean
+          id: string
+          is_published: boolean
+          location: string | null
+          slug: string
+          starts_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          custom_fields?: Json
+          description?: string | null
+          ends_at?: string | null
+          feedback_open?: boolean
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          slug: string
+          starts_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          custom_fields?: Json
+          description?: string | null
+          ends_at?: string | null
+          feedback_open?: boolean
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          slug?: string
+          starts_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       lessons: {
         Row: {
           content: string | null
@@ -511,6 +650,164 @@ export type Database = {
           slug?: string
           sponsor?: string | null
           title?: string
+        }
+        Relationships: []
+      }
+      school_courses: {
+        Row: {
+          course_name: string
+          created_at: string
+          faculty: string | null
+          id: string
+          jamb_cutoff: number
+          min_waec_credits: number
+          notes: string | null
+          required_subjects: Json
+          school_id: string
+        }
+        Insert: {
+          course_name: string
+          created_at?: string
+          faculty?: string | null
+          id?: string
+          jamb_cutoff?: number
+          min_waec_credits?: number
+          notes?: string | null
+          required_subjects?: Json
+          school_id: string
+        }
+        Update: {
+          course_name?: string
+          created_at?: string
+          faculty?: string | null
+          id?: string
+          jamb_cutoff?: number
+          min_waec_credits?: number
+          notes?: string | null
+          required_subjects?: Json
+          school_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_courses_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      schools: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          ownership: string | null
+          short_name: string | null
+          slug: string
+          state: string | null
+          type: string | null
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          ownership?: string | null
+          short_name?: string | null
+          slug: string
+          state?: string | null
+          type?: string | null
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          ownership?: string | null
+          short_name?: string | null
+          slug?: string
+          state?: string | null
+          type?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      site_feedback: {
+        Row: {
+          category: string | null
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          page: string | null
+          rating: number | null
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          page?: string | null
+          rating?: number | null
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          page?: string | null
+          rating?: number | null
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      student_results: {
+        Row: {
+          created_at: string
+          id: string
+          jamb_score: number | null
+          jamb_subjects: Json
+          notes: string | null
+          preferred_course: string | null
+          preferred_state: string | null
+          updated_at: string
+          user_id: string
+          waec_subjects: Json
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          jamb_score?: number | null
+          jamb_subjects?: Json
+          notes?: string | null
+          preferred_course?: string | null
+          preferred_state?: string | null
+          updated_at?: string
+          user_id: string
+          waec_subjects?: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          jamb_score?: number | null
+          jamb_subjects?: Json
+          notes?: string | null
+          preferred_course?: string | null
+          preferred_state?: string | null
+          updated_at?: string
+          user_id?: string
+          waec_subjects?: Json
         }
         Relationships: []
       }
