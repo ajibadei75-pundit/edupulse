@@ -79,12 +79,21 @@ export function DashboardShell({ children }: { children: ReactNode }) {
               );
             })}
             {isAdmin && (
-              <Link to="/dashboard/admin" className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-semibold transition-colors mt-4",
-                pathname.startsWith("/dashboard/admin") ? "bg-accent text-accent-foreground" : "text-accent-foreground bg-accent/30 hover:bg-accent/50"
-              )}>
-                <ShieldCheck className="size-4" /> Admin
-              </Link>
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Admin</p>
+                {ADMIN_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-accent text-accent-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
             )}
           </nav>
           <div className="p-3 border-t border-border">
