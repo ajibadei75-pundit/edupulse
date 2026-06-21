@@ -10,11 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
+import { Route as SchoolFinderRouteImport } from './routes/school-finder'
 import { Route as ScholarshipsRouteImport } from './routes/scholarships'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ItAcademyRouteImport } from './routes/it-academy'
 import { Route as IslamicAcademyRouteImport } from './routes/islamic-academy'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as CounselingRouteImport } from './routes/counseling'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -24,23 +26,33 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardCbtRouteRouteImport } from './routes/_authenticated/dashboard/cbt/route'
 import { Route as AuthenticatedDashboardWalletIndexRouteImport } from './routes/_authenticated/dashboard/wallet/index'
+import { Route as AuthenticatedDashboardResultsIndexRouteImport } from './routes/_authenticated/dashboard/results/index'
 import { Route as AuthenticatedDashboardProfileIndexRouteImport } from './routes/_authenticated/dashboard/profile/index'
 import { Route as AuthenticatedDashboardLeaderboardIndexRouteImport } from './routes/_authenticated/dashboard/leaderboard/index'
+import { Route as AuthenticatedDashboardFeedbackIndexRouteImport } from './routes/_authenticated/dashboard/feedback/index'
+import { Route as AuthenticatedDashboardEventsIndexRouteImport } from './routes/_authenticated/dashboard/events/index'
 import { Route as AuthenticatedDashboardCoursesIndexRouteImport } from './routes/_authenticated/dashboard/courses/index'
 import { Route as AuthenticatedDashboardCounselingIndexRouteImport } from './routes/_authenticated/dashboard/counseling/index'
 import { Route as AuthenticatedDashboardCommunityIndexRouteImport } from './routes/_authenticated/dashboard/community/index'
 import { Route as AuthenticatedDashboardCertificatesIndexRouteImport } from './routes/_authenticated/dashboard/certificates/index'
 import { Route as AuthenticatedDashboardCbtIndexRouteImport } from './routes/_authenticated/dashboard/cbt/index'
 import { Route as AuthenticatedDashboardAdminIndexRouteImport } from './routes/_authenticated/dashboard/admin/index'
+import { Route as AuthenticatedDashboardEventsSlugRouteImport } from './routes/_authenticated/dashboard/events/$slug'
 import { Route as AuthenticatedDashboardCbtSlugRouteImport } from './routes/_authenticated/dashboard/cbt/$slug'
 
 const SponsorsRoute = SponsorsRouteImport.update({
   id: '/sponsors',
   path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolFinderRoute = SchoolFinderRouteImport.update({
+  id: '/school-finder',
+  path: '/school-finder',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScholarshipsRoute = ScholarshipsRouteImport.update({
@@ -66,6 +78,11 @@ const IslamicAcademyRoute = IslamicAcademyRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesRoute = CoursesRouteImport.update({
@@ -112,6 +129,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EventsRoute,
+} as any)
 const AuthenticatedDashboardRouteRoute =
   AuthenticatedDashboardRouteRouteImport.update({
     id: '/dashboard',
@@ -136,6 +158,12 @@ const AuthenticatedDashboardWalletIndexRoute =
     path: '/wallet/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardResultsIndexRoute =
+  AuthenticatedDashboardResultsIndexRouteImport.update({
+    id: '/results/',
+    path: '/results/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardProfileIndexRoute =
   AuthenticatedDashboardProfileIndexRouteImport.update({
     id: '/profile/',
@@ -146,6 +174,18 @@ const AuthenticatedDashboardLeaderboardIndexRoute =
   AuthenticatedDashboardLeaderboardIndexRouteImport.update({
     id: '/leaderboard/',
     path: '/leaderboard/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardFeedbackIndexRoute =
+  AuthenticatedDashboardFeedbackIndexRouteImport.update({
+    id: '/feedback/',
+    path: '/feedback/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardEventsIndexRoute =
+  AuthenticatedDashboardEventsIndexRouteImport.update({
+    id: '/events/',
+    path: '/events/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
 const AuthenticatedDashboardCoursesIndexRoute =
@@ -184,6 +224,12 @@ const AuthenticatedDashboardAdminIndexRoute =
     path: '/admin/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardEventsSlugRoute =
+  AuthenticatedDashboardEventsSlugRouteImport.update({
+    id: '/events/$slug',
+    path: '/events/$slug',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardCbtSlugRoute =
   AuthenticatedDashboardCbtSlugRouteImport.update({
     id: '/$slug',
@@ -200,24 +246,31 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/counseling': typeof CounselingRoute
   '/courses': typeof CoursesRoute
+  '/events': typeof EventsRouteWithChildren
   '/faq': typeof FaqRoute
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
   '/scholarships': typeof ScholarshipsRoute
+  '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/events/$slug': typeof EventsSlugRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
   '/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
   '/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
   '/dashboard/counseling/': typeof AuthenticatedDashboardCounselingIndexRoute
   '/dashboard/courses/': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
+  '/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
   '/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
+  '/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
   '/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesByTo {
@@ -229,22 +282,29 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/counseling': typeof CounselingRoute
   '/courses': typeof CoursesRoute
+  '/events': typeof EventsRouteWithChildren
   '/faq': typeof FaqRoute
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
   '/scholarships': typeof ScholarshipsRoute
+  '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminIndexRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtIndexRoute
   '/dashboard/certificates': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/dashboard/community': typeof AuthenticatedDashboardCommunityIndexRoute
   '/dashboard/counseling': typeof AuthenticatedDashboardCounselingIndexRoute
   '/dashboard/courses': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/dashboard/events': typeof AuthenticatedDashboardEventsIndexRoute
+  '/dashboard/feedback': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard': typeof AuthenticatedDashboardLeaderboardIndexRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileIndexRoute
+  '/dashboard/results': typeof AuthenticatedDashboardResultsIndexRoute
   '/dashboard/wallet': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesById {
@@ -258,24 +318,31 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/counseling': typeof CounselingRoute
   '/courses': typeof CoursesRoute
+  '/events': typeof EventsRouteWithChildren
   '/faq': typeof FaqRoute
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
   '/scholarships': typeof ScholarshipsRoute
+  '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/events/$slug': typeof EventsSlugRoute
   '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
+  '/_authenticated/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/_authenticated/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
   '/_authenticated/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
   '/_authenticated/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/_authenticated/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
   '/_authenticated/dashboard/counseling/': typeof AuthenticatedDashboardCounselingIndexRoute
   '/_authenticated/dashboard/courses/': typeof AuthenticatedDashboardCoursesIndexRoute
+  '/_authenticated/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
+  '/_authenticated/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/_authenticated/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
   '/_authenticated/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
+  '/_authenticated/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
   '/_authenticated/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRouteTypes {
@@ -289,24 +356,31 @@ export interface FileRouteTypes {
     | '/contact'
     | '/counseling'
     | '/courses'
+    | '/events'
     | '/faq'
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
     | '/scholarships'
+    | '/school-finder'
     | '/sponsors'
     | '/dashboard'
+    | '/events/$slug'
     | '/dashboard/cbt'
     | '/dashboard/'
     | '/dashboard/cbt/$slug'
+    | '/dashboard/events/$slug'
     | '/dashboard/admin/'
     | '/dashboard/cbt/'
     | '/dashboard/certificates/'
     | '/dashboard/community/'
     | '/dashboard/counseling/'
     | '/dashboard/courses/'
+    | '/dashboard/events/'
+    | '/dashboard/feedback/'
     | '/dashboard/leaderboard/'
     | '/dashboard/profile/'
+    | '/dashboard/results/'
     | '/dashboard/wallet/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -318,22 +392,29 @@ export interface FileRouteTypes {
     | '/contact'
     | '/counseling'
     | '/courses'
+    | '/events'
     | '/faq'
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
     | '/scholarships'
+    | '/school-finder'
     | '/sponsors'
+    | '/events/$slug'
     | '/dashboard'
     | '/dashboard/cbt/$slug'
+    | '/dashboard/events/$slug'
     | '/dashboard/admin'
     | '/dashboard/cbt'
     | '/dashboard/certificates'
     | '/dashboard/community'
     | '/dashboard/counseling'
     | '/dashboard/courses'
+    | '/dashboard/events'
+    | '/dashboard/feedback'
     | '/dashboard/leaderboard'
     | '/dashboard/profile'
+    | '/dashboard/results'
     | '/dashboard/wallet'
   id:
     | '__root__'
@@ -346,24 +427,31 @@ export interface FileRouteTypes {
     | '/contact'
     | '/counseling'
     | '/courses'
+    | '/events'
     | '/faq'
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
     | '/scholarships'
+    | '/school-finder'
     | '/sponsors'
     | '/_authenticated/dashboard'
+    | '/events/$slug'
     | '/_authenticated/dashboard/cbt'
     | '/_authenticated/dashboard/'
     | '/_authenticated/dashboard/cbt/$slug'
+    | '/_authenticated/dashboard/events/$slug'
     | '/_authenticated/dashboard/admin/'
     | '/_authenticated/dashboard/cbt/'
     | '/_authenticated/dashboard/certificates/'
     | '/_authenticated/dashboard/community/'
     | '/_authenticated/dashboard/counseling/'
     | '/_authenticated/dashboard/courses/'
+    | '/_authenticated/dashboard/events/'
+    | '/_authenticated/dashboard/feedback/'
     | '/_authenticated/dashboard/leaderboard/'
     | '/_authenticated/dashboard/profile/'
+    | '/_authenticated/dashboard/results/'
     | '/_authenticated/dashboard/wallet/'
   fileRoutesById: FileRoutesById
 }
@@ -377,11 +465,13 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CounselingRoute: typeof CounselingRoute
   CoursesRoute: typeof CoursesRoute
+  EventsRoute: typeof EventsRouteWithChildren
   FaqRoute: typeof FaqRoute
   IslamicAcademyRoute: typeof IslamicAcademyRoute
   ItAcademyRoute: typeof ItAcademyRoute
   NewsRoute: typeof NewsRoute
   ScholarshipsRoute: typeof ScholarshipsRoute
+  SchoolFinderRoute: typeof SchoolFinderRoute
   SponsorsRoute: typeof SponsorsRoute
 }
 
@@ -392,6 +482,13 @@ declare module '@tanstack/react-router' {
       path: '/sponsors'
       fullPath: '/sponsors'
       preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/school-finder': {
+      id: '/school-finder'
+      path: '/school-finder'
+      fullPath: '/school-finder'
+      preLoaderRoute: typeof SchoolFinderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/scholarships': {
@@ -427,6 +524,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses': {
@@ -492,6 +596,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -520,6 +631,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardWalletIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/results/': {
+      id: '/_authenticated/dashboard/results/'
+      path: '/results'
+      fullPath: '/dashboard/results/'
+      preLoaderRoute: typeof AuthenticatedDashboardResultsIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/profile/': {
       id: '/_authenticated/dashboard/profile/'
       path: '/profile'
@@ -532,6 +650,20 @@ declare module '@tanstack/react-router' {
       path: '/leaderboard'
       fullPath: '/dashboard/leaderboard/'
       preLoaderRoute: typeof AuthenticatedDashboardLeaderboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/feedback/': {
+      id: '/_authenticated/dashboard/feedback/'
+      path: '/feedback'
+      fullPath: '/dashboard/feedback/'
+      preLoaderRoute: typeof AuthenticatedDashboardFeedbackIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/events/': {
+      id: '/_authenticated/dashboard/events/'
+      path: '/events'
+      fullPath: '/dashboard/events/'
+      preLoaderRoute: typeof AuthenticatedDashboardEventsIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
     '/_authenticated/dashboard/courses/': {
@@ -576,6 +708,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAdminIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/events/$slug': {
+      id: '/_authenticated/dashboard/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/dashboard/events/$slug'
+      preLoaderRoute: typeof AuthenticatedDashboardEventsSlugRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/cbt/$slug': {
       id: '/_authenticated/dashboard/cbt/$slug'
       path: '/$slug'
@@ -605,13 +744,17 @@ const AuthenticatedDashboardCbtRouteRouteWithChildren =
 interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardCbtRouteRoute: typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardEventsSlugRoute: typeof AuthenticatedDashboardEventsSlugRoute
   AuthenticatedDashboardAdminIndexRoute: typeof AuthenticatedDashboardAdminIndexRoute
   AuthenticatedDashboardCertificatesIndexRoute: typeof AuthenticatedDashboardCertificatesIndexRoute
   AuthenticatedDashboardCommunityIndexRoute: typeof AuthenticatedDashboardCommunityIndexRoute
   AuthenticatedDashboardCounselingIndexRoute: typeof AuthenticatedDashboardCounselingIndexRoute
   AuthenticatedDashboardCoursesIndexRoute: typeof AuthenticatedDashboardCoursesIndexRoute
+  AuthenticatedDashboardEventsIndexRoute: typeof AuthenticatedDashboardEventsIndexRoute
+  AuthenticatedDashboardFeedbackIndexRoute: typeof AuthenticatedDashboardFeedbackIndexRoute
   AuthenticatedDashboardLeaderboardIndexRoute: typeof AuthenticatedDashboardLeaderboardIndexRoute
   AuthenticatedDashboardProfileIndexRoute: typeof AuthenticatedDashboardProfileIndexRoute
+  AuthenticatedDashboardResultsIndexRoute: typeof AuthenticatedDashboardResultsIndexRoute
   AuthenticatedDashboardWalletIndexRoute: typeof AuthenticatedDashboardWalletIndexRoute
 }
 
@@ -620,6 +763,8 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardCbtRouteRoute:
       AuthenticatedDashboardCbtRouteRouteWithChildren,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+    AuthenticatedDashboardEventsSlugRoute:
+      AuthenticatedDashboardEventsSlugRoute,
     AuthenticatedDashboardAdminIndexRoute:
       AuthenticatedDashboardAdminIndexRoute,
     AuthenticatedDashboardCertificatesIndexRoute:
@@ -630,10 +775,16 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
       AuthenticatedDashboardCounselingIndexRoute,
     AuthenticatedDashboardCoursesIndexRoute:
       AuthenticatedDashboardCoursesIndexRoute,
+    AuthenticatedDashboardEventsIndexRoute:
+      AuthenticatedDashboardEventsIndexRoute,
+    AuthenticatedDashboardFeedbackIndexRoute:
+      AuthenticatedDashboardFeedbackIndexRoute,
     AuthenticatedDashboardLeaderboardIndexRoute:
       AuthenticatedDashboardLeaderboardIndexRoute,
     AuthenticatedDashboardProfileIndexRoute:
       AuthenticatedDashboardProfileIndexRoute,
+    AuthenticatedDashboardResultsIndexRoute:
+      AuthenticatedDashboardResultsIndexRoute,
     AuthenticatedDashboardWalletIndexRoute:
       AuthenticatedDashboardWalletIndexRoute,
   }
@@ -655,6 +806,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface EventsRouteChildren {
+  EventsSlugRoute: typeof EventsSlugRoute
+}
+
+const EventsRouteChildren: EventsRouteChildren = {
+  EventsSlugRoute: EventsSlugRoute,
+}
+
+const EventsRouteWithChildren =
+  EventsRoute._addFileChildren(EventsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -665,11 +827,13 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CounselingRoute: CounselingRoute,
   CoursesRoute: CoursesRoute,
+  EventsRoute: EventsRouteWithChildren,
   FaqRoute: FaqRoute,
   IslamicAcademyRoute: IslamicAcademyRoute,
   ItAcademyRoute: ItAcademyRoute,
   NewsRoute: NewsRoute,
   ScholarshipsRoute: ScholarshipsRoute,
+  SchoolFinderRoute: SchoolFinderRoute,
   SponsorsRoute: SponsorsRoute,
 }
 export const routeTree = rootRouteImport
