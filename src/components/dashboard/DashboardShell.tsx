@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,12 +13,19 @@ const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { to: "/dashboard/courses", label: "Courses", icon: BookOpen },
   { to: "/dashboard/cbt", label: "CBT Practice", icon: Brain },
+  { to: "/dashboard/results", label: "Results & Match", icon: GraduationCap },
   { to: "/dashboard/counseling", label: "Counseling", icon: HeartHandshake },
   { to: "/dashboard/community", label: "Community", icon: Users },
   { to: "/dashboard/leaderboard", label: "Leaderboard", icon: Trophy },
   { to: "/dashboard/certificates", label: "Certificates", icon: Award },
   { to: "/dashboard/wallet", label: "Wallet", icon: Wallet },
   { to: "/dashboard/profile", label: "Profile", icon: UserCircle },
+] as const;
+
+const ADMIN_NAV = [
+  { to: "/dashboard/admin", label: "Admin console", icon: ShieldCheck },
+  { to: "/dashboard/events", label: "Events", icon: Calendar },
+  { to: "/dashboard/feedback", label: "Feedback", icon: MessageCircle },
 ] as const;
 
 export function DashboardShell({ children }: { children: ReactNode }) {
