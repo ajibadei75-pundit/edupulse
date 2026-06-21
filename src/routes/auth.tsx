@@ -14,6 +14,7 @@ const searchSchema = z.object({
 }).optional();
 
 export const Route = createFileRoute("/auth")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Login or sign up — EduPulse" },
