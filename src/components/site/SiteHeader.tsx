@@ -8,10 +8,10 @@ import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
   { to: "/courses", label: "Courses" },
-  { to: "/cbt", label: "CBT Practice" },
+  { to: "/cbt", label: "CBT" },
+  { to: "/school-finder", label: "School Finder" },
+  { to: "/events", label: "Events" },
   { to: "/counseling", label: "Counseling" },
-  { to: "/it-academy", label: "IT Academy" },
-  { to: "/islamic-academy", label: "Islamic" },
   { to: "/community", label: "Community" },
   { to: "/scholarships", label: "Scholarships" },
 ] as const;
