@@ -92,22 +92,14 @@ export const submitCbtAttempt = createServerFn({ method: "POST" })
 export const getLeaderboard = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase
-      .from("cbt_attempts")
-      .select("user_id,score,total,completed_at,profiles(full_name,avatar_url,school)")
-      .order("completed_at", { ascending: false })
-      .limit(200);
-    type Row = { user_id: string; score: number; total: number; profiles: { full_name: string | null; avatar_url: string | null; school: string | null } | null };
-    const agg = new Map<string, { score: number; attempts: number; profile: Row["profiles"] }>();
-    (data as Row[] | null ?? []).forEach((r) => {
-      const prev = agg.get(r.user_id) ?? { score: 0, attempts: 0, profile: r.profiles };
-      prev.score += (r.score / Math.max(1, r.total)) * 100;
-      prev.attempts += 1;
-      agg.set(r.user_id, prev);
-    });
-    return Array.from(agg.entries())
-      .map(([userId, v]) => ({ userId, profile: v.profile, avgScore: Math.round(v.score / v.attempts), attempts: v.attempts }))
-      .sort((a, b) => b.avgScore - a.avgScore).slice(0, 20);
+    const { data, error } = await context.supabase.rpc("get_cbt_leaderboard", { _limit: 20 });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((r: any) => ({
+      userId: r.user_id,
+      profile: { full_name: r.full_name, avatar_url: r.avatar_url, school: r.school },
+      avgScore: Number(r.avg_score ?? 0),
+      attempts: Number(r.attempts ?? 0),
+    }));
   });
 
 export const getMyCommunityFeed = createServerFn({ method: "GET" })
