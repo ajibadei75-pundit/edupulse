@@ -4,7 +4,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
 import { getMyProfile, updateMyProfile } from "@/lib/app.functions";
+import { getMyInviteCode } from "@/lib/parent.functions";
 import { Button } from "@/components/ui/button";
+import { Copy, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard/profile/")({
