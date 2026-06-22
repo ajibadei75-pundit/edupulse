@@ -307,7 +307,9 @@ function SignupWizard({ redirect }: { redirect?: string }) {
   );
 }
 
-function Field({ label, value, onChange, type = "text", required, placeholder, minLength, maxLength }: any) {
+function Field({ label, value, onChange, type = "text", required, placeholder, minLength, maxLength }: {
+  label: string; value: string; onChange: (v: string) => void; type?: string; required?: boolean; placeholder?: string; minLength?: number; maxLength?: number;
+}) {
   return (
     <div>
       <label className="text-sm font-ui font-medium mb-1.5 block">{label}</label>
