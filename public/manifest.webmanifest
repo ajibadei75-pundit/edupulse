@@ -1,0 +1,14 @@
+{
+  "name": "EduPulse — The Heartbeat of Student Success",
+  "short_name": "EduPulse",
+  "description": "Learn, practice, get counseling and discover scholarships — all in one student-success ecosystem.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#0A3D91",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }
+  ]
+}

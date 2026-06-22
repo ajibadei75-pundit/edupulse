@@ -14,6 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ai_messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cbt_attempts: {
         Row: {
           answers: Json | null
@@ -517,6 +573,30 @@ export type Database = {
         }
         Relationships: []
       }
+      parent_links: {
+        Row: {
+          created_at: string
+          id: string
+          parent_id: string
+          status: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          parent_id: string
+          status?: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          parent_id?: string
+          status?: string
+          student_id?: string
+        }
+        Relationships: []
+      }
       post_comments: {
         Row: {
           content: string
@@ -582,10 +662,16 @@ export type Database = {
         Row: {
           avatar_url: string | null
           bio: string | null
+          country: string | null
           created_at: string
           full_name: string | null
+          goals: string | null
           id: string
+          institution: string | null
+          interests: string[] | null
+          invite_code: string | null
           level: string | null
+          phone: string | null
           school: string | null
           streak_days: number
           updated_at: string
@@ -593,10 +679,16 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           bio?: string | null
+          country?: string | null
           created_at?: string
           full_name?: string | null
+          goals?: string | null
           id: string
+          institution?: string | null
+          interests?: string[] | null
+          invite_code?: string | null
           level?: string | null
+          phone?: string | null
           school?: string | null
           streak_days?: number
           updated_at?: string
@@ -604,10 +696,16 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           bio?: string | null
+          country?: string | null
           created_at?: string
           full_name?: string | null
+          goals?: string | null
           id?: string
+          institution?: string | null
+          interests?: string[] | null
+          invite_code?: string | null
           level?: string | null
+          phone?: string | null
           school?: string | null
           streak_days?: number
           updated_at?: string
@@ -837,6 +935,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      gen_invite_code: { Args: never; Returns: string }
       get_cbt_leaderboard: {
         Args: { _limit?: number }
         Returns: {
@@ -855,6 +954,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      link_student_by_code: { Args: { _code: string }; Returns: string }
       verify_certificate: {
         Args: { _code: string }
         Returns: {
@@ -874,6 +974,7 @@ export type Database = {
         | "content_admin"
         | "finance_admin"
         | "islamic_admin"
+        | "parent"
       counseling_type: "academic" | "career" | "admission" | "personal"
       exam_type:
         | "waec"
@@ -1019,6 +1120,7 @@ export const Constants = {
         "content_admin",
         "finance_admin",
         "islamic_admin",
+        "parent",
       ],
       counseling_type: ["academic", "career", "admission", "personal"],
       exam_type: ["waec", "jamb", "neco", "post_utme", "professional", "mock"],

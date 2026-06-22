@@ -27,12 +27,15 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardCbtRouteRouteImport } from './routes/_authenticated/dashboard/cbt/route'
 import { Route as AuthenticatedDashboardWalletIndexRouteImport } from './routes/_authenticated/dashboard/wallet/index'
+import { Route as AuthenticatedDashboardTutorIndexRouteImport } from './routes/_authenticated/dashboard/tutor/index'
 import { Route as AuthenticatedDashboardResultsIndexRouteImport } from './routes/_authenticated/dashboard/results/index'
 import { Route as AuthenticatedDashboardProfileIndexRouteImport } from './routes/_authenticated/dashboard/profile/index'
+import { Route as AuthenticatedDashboardParentIndexRouteImport } from './routes/_authenticated/dashboard/parent/index'
 import { Route as AuthenticatedDashboardLeaderboardIndexRouteImport } from './routes/_authenticated/dashboard/leaderboard/index'
 import { Route as AuthenticatedDashboardFeedbackIndexRouteImport } from './routes/_authenticated/dashboard/feedback/index'
 import { Route as AuthenticatedDashboardEventsIndexRouteImport } from './routes/_authenticated/dashboard/events/index'
@@ -41,6 +44,7 @@ import { Route as AuthenticatedDashboardCounselingIndexRouteImport } from './rou
 import { Route as AuthenticatedDashboardCommunityIndexRouteImport } from './routes/_authenticated/dashboard/community/index'
 import { Route as AuthenticatedDashboardCertificatesIndexRouteImport } from './routes/_authenticated/dashboard/certificates/index'
 import { Route as AuthenticatedDashboardCbtIndexRouteImport } from './routes/_authenticated/dashboard/cbt/index'
+import { Route as AuthenticatedDashboardAiTutorIndexRouteImport } from './routes/_authenticated/dashboard/ai-tutor/index'
 import { Route as AuthenticatedDashboardAdminIndexRouteImport } from './routes/_authenticated/dashboard/admin/index'
 import { Route as AuthenticatedDashboardEventsSlugRouteImport } from './routes/_authenticated/dashboard/events/$slug'
 import { Route as AuthenticatedDashboardCbtSlugRouteImport } from './routes/_authenticated/dashboard/cbt/$slug'
@@ -134,6 +138,11 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => EventsRoute,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedDashboardRouteRoute =
   AuthenticatedDashboardRouteRouteImport.update({
     id: '/dashboard',
@@ -158,6 +167,12 @@ const AuthenticatedDashboardWalletIndexRoute =
     path: '/wallet/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardTutorIndexRoute =
+  AuthenticatedDashboardTutorIndexRouteImport.update({
+    id: '/tutor/',
+    path: '/tutor/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardResultsIndexRoute =
   AuthenticatedDashboardResultsIndexRouteImport.update({
     id: '/results/',
@@ -168,6 +183,12 @@ const AuthenticatedDashboardProfileIndexRoute =
   AuthenticatedDashboardProfileIndexRouteImport.update({
     id: '/profile/',
     path: '/profile/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardParentIndexRoute =
+  AuthenticatedDashboardParentIndexRouteImport.update({
+    id: '/parent/',
+    path: '/parent/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
 const AuthenticatedDashboardLeaderboardIndexRoute =
@@ -218,6 +239,12 @@ const AuthenticatedDashboardCbtIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardCbtRouteRoute,
   } as any)
+const AuthenticatedDashboardAiTutorIndexRoute =
+  AuthenticatedDashboardAiTutorIndexRouteImport.update({
+    id: '/ai-tutor/',
+    path: '/ai-tutor/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardAdminIndexRoute =
   AuthenticatedDashboardAdminIndexRouteImport.update({
     id: '/admin/',
@@ -255,12 +282,14 @@ export interface FileRoutesByFullPath {
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
+  '/dashboard/ai-tutor/': typeof AuthenticatedDashboardAiTutorIndexRoute
   '/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
   '/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
@@ -269,8 +298,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
   '/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/parent/': typeof AuthenticatedDashboardParentIndexRoute
   '/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
   '/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
+  '/dashboard/tutor/': typeof AuthenticatedDashboardTutorIndexRoute
   '/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesByTo {
@@ -290,11 +321,13 @@ export interface FileRoutesByTo {
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminIndexRoute
+  '/dashboard/ai-tutor': typeof AuthenticatedDashboardAiTutorIndexRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtIndexRoute
   '/dashboard/certificates': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/dashboard/community': typeof AuthenticatedDashboardCommunityIndexRoute
@@ -303,8 +336,10 @@ export interface FileRoutesByTo {
   '/dashboard/events': typeof AuthenticatedDashboardEventsIndexRoute
   '/dashboard/feedback': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/parent': typeof AuthenticatedDashboardParentIndexRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileIndexRoute
   '/dashboard/results': typeof AuthenticatedDashboardResultsIndexRoute
+  '/dashboard/tutor': typeof AuthenticatedDashboardTutorIndexRoute
   '/dashboard/wallet': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRoutesById {
@@ -327,12 +362,14 @@ export interface FileRoutesById {
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/_authenticated/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/_authenticated/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
+  '/_authenticated/dashboard/ai-tutor/': typeof AuthenticatedDashboardAiTutorIndexRoute
   '/_authenticated/dashboard/cbt/': typeof AuthenticatedDashboardCbtIndexRoute
   '/_authenticated/dashboard/certificates/': typeof AuthenticatedDashboardCertificatesIndexRoute
   '/_authenticated/dashboard/community/': typeof AuthenticatedDashboardCommunityIndexRoute
@@ -341,8 +378,10 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
   '/_authenticated/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/_authenticated/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/_authenticated/dashboard/parent/': typeof AuthenticatedDashboardParentIndexRoute
   '/_authenticated/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
   '/_authenticated/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
+  '/_authenticated/dashboard/tutor/': typeof AuthenticatedDashboardTutorIndexRoute
   '/_authenticated/dashboard/wallet/': typeof AuthenticatedDashboardWalletIndexRoute
 }
 export interface FileRouteTypes {
@@ -365,12 +404,14 @@ export interface FileRouteTypes {
     | '/school-finder'
     | '/sponsors'
     | '/dashboard'
+    | '/api/chat'
     | '/events/$slug'
     | '/dashboard/cbt'
     | '/dashboard/'
     | '/dashboard/cbt/$slug'
     | '/dashboard/events/$slug'
     | '/dashboard/admin/'
+    | '/dashboard/ai-tutor/'
     | '/dashboard/cbt/'
     | '/dashboard/certificates/'
     | '/dashboard/community/'
@@ -379,8 +420,10 @@ export interface FileRouteTypes {
     | '/dashboard/events/'
     | '/dashboard/feedback/'
     | '/dashboard/leaderboard/'
+    | '/dashboard/parent/'
     | '/dashboard/profile/'
     | '/dashboard/results/'
+    | '/dashboard/tutor/'
     | '/dashboard/wallet/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -400,11 +443,13 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
+    | '/api/chat'
     | '/events/$slug'
     | '/dashboard'
     | '/dashboard/cbt/$slug'
     | '/dashboard/events/$slug'
     | '/dashboard/admin'
+    | '/dashboard/ai-tutor'
     | '/dashboard/cbt'
     | '/dashboard/certificates'
     | '/dashboard/community'
@@ -413,8 +458,10 @@ export interface FileRouteTypes {
     | '/dashboard/events'
     | '/dashboard/feedback'
     | '/dashboard/leaderboard'
+    | '/dashboard/parent'
     | '/dashboard/profile'
     | '/dashboard/results'
+    | '/dashboard/tutor'
     | '/dashboard/wallet'
   id:
     | '__root__'
@@ -436,12 +483,14 @@ export interface FileRouteTypes {
     | '/school-finder'
     | '/sponsors'
     | '/_authenticated/dashboard'
+    | '/api/chat'
     | '/events/$slug'
     | '/_authenticated/dashboard/cbt'
     | '/_authenticated/dashboard/'
     | '/_authenticated/dashboard/cbt/$slug'
     | '/_authenticated/dashboard/events/$slug'
     | '/_authenticated/dashboard/admin/'
+    | '/_authenticated/dashboard/ai-tutor/'
     | '/_authenticated/dashboard/cbt/'
     | '/_authenticated/dashboard/certificates/'
     | '/_authenticated/dashboard/community/'
@@ -450,8 +499,10 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/events/'
     | '/_authenticated/dashboard/feedback/'
     | '/_authenticated/dashboard/leaderboard/'
+    | '/_authenticated/dashboard/parent/'
     | '/_authenticated/dashboard/profile/'
     | '/_authenticated/dashboard/results/'
+    | '/_authenticated/dashboard/tutor/'
     | '/_authenticated/dashboard/wallet/'
   fileRoutesById: FileRoutesById
 }
@@ -473,6 +524,7 @@ export interface RootRouteChildren {
   ScholarshipsRoute: typeof ScholarshipsRoute
   SchoolFinderRoute: typeof SchoolFinderRoute
   SponsorsRoute: typeof SponsorsRoute
+  ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -603,6 +655,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof EventsRoute
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -631,6 +690,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardWalletIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/tutor/': {
+      id: '/_authenticated/dashboard/tutor/'
+      path: '/tutor'
+      fullPath: '/dashboard/tutor/'
+      preLoaderRoute: typeof AuthenticatedDashboardTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/results/': {
       id: '/_authenticated/dashboard/results/'
       path: '/results'
@@ -643,6 +709,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/dashboard/profile/'
       preLoaderRoute: typeof AuthenticatedDashboardProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/parent/': {
+      id: '/_authenticated/dashboard/parent/'
+      path: '/parent'
+      fullPath: '/dashboard/parent/'
+      preLoaderRoute: typeof AuthenticatedDashboardParentIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
     '/_authenticated/dashboard/leaderboard/': {
@@ -701,6 +774,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardCbtIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardCbtRouteRoute
     }
+    '/_authenticated/dashboard/ai-tutor/': {
+      id: '/_authenticated/dashboard/ai-tutor/'
+      path: '/ai-tutor'
+      fullPath: '/dashboard/ai-tutor/'
+      preLoaderRoute: typeof AuthenticatedDashboardAiTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/admin/': {
       id: '/_authenticated/dashboard/admin/'
       path: '/admin'
@@ -746,6 +826,7 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDashboardEventsSlugRoute: typeof AuthenticatedDashboardEventsSlugRoute
   AuthenticatedDashboardAdminIndexRoute: typeof AuthenticatedDashboardAdminIndexRoute
+  AuthenticatedDashboardAiTutorIndexRoute: typeof AuthenticatedDashboardAiTutorIndexRoute
   AuthenticatedDashboardCertificatesIndexRoute: typeof AuthenticatedDashboardCertificatesIndexRoute
   AuthenticatedDashboardCommunityIndexRoute: typeof AuthenticatedDashboardCommunityIndexRoute
   AuthenticatedDashboardCounselingIndexRoute: typeof AuthenticatedDashboardCounselingIndexRoute
@@ -753,8 +834,10 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardEventsIndexRoute: typeof AuthenticatedDashboardEventsIndexRoute
   AuthenticatedDashboardFeedbackIndexRoute: typeof AuthenticatedDashboardFeedbackIndexRoute
   AuthenticatedDashboardLeaderboardIndexRoute: typeof AuthenticatedDashboardLeaderboardIndexRoute
+  AuthenticatedDashboardParentIndexRoute: typeof AuthenticatedDashboardParentIndexRoute
   AuthenticatedDashboardProfileIndexRoute: typeof AuthenticatedDashboardProfileIndexRoute
   AuthenticatedDashboardResultsIndexRoute: typeof AuthenticatedDashboardResultsIndexRoute
+  AuthenticatedDashboardTutorIndexRoute: typeof AuthenticatedDashboardTutorIndexRoute
   AuthenticatedDashboardWalletIndexRoute: typeof AuthenticatedDashboardWalletIndexRoute
 }
 
@@ -767,6 +850,8 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
       AuthenticatedDashboardEventsSlugRoute,
     AuthenticatedDashboardAdminIndexRoute:
       AuthenticatedDashboardAdminIndexRoute,
+    AuthenticatedDashboardAiTutorIndexRoute:
+      AuthenticatedDashboardAiTutorIndexRoute,
     AuthenticatedDashboardCertificatesIndexRoute:
       AuthenticatedDashboardCertificatesIndexRoute,
     AuthenticatedDashboardCommunityIndexRoute:
@@ -781,10 +866,14 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
       AuthenticatedDashboardFeedbackIndexRoute,
     AuthenticatedDashboardLeaderboardIndexRoute:
       AuthenticatedDashboardLeaderboardIndexRoute,
+    AuthenticatedDashboardParentIndexRoute:
+      AuthenticatedDashboardParentIndexRoute,
     AuthenticatedDashboardProfileIndexRoute:
       AuthenticatedDashboardProfileIndexRoute,
     AuthenticatedDashboardResultsIndexRoute:
       AuthenticatedDashboardResultsIndexRoute,
+    AuthenticatedDashboardTutorIndexRoute:
+      AuthenticatedDashboardTutorIndexRoute,
     AuthenticatedDashboardWalletIndexRoute:
       AuthenticatedDashboardWalletIndexRoute,
   }
@@ -835,17 +924,8 @@ const rootRouteChildren: RootRouteChildren = {
   ScholarshipsRoute: ScholarshipsRoute,
   SchoolFinderRoute: SchoolFinderRoute,
   SponsorsRoute: SponsorsRoute,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

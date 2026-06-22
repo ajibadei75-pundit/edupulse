@@ -27,6 +27,7 @@ function CbtDrill() {
   const [cur, setCur] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(DURATION);
   const [result, setResult] = useState<{ score: number; total: number; review: any[] } | null>(null);
+  const [switches, setSwitches] = useState(0);
   const startedAt = useRef<number>(Date.now());
 
   useEffect(() => { startedAt.current = Date.now(); }, [data?.subject?.id]);
@@ -41,12 +42,34 @@ function CbtDrill() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
+  // Anti-cheat: count tab switches; auto-submit at 3
+  useEffect(() => {
+    if (result) return;
+    function onHide() {
+      if (document.hidden) {
+        setSwitches((n) => {
+          const next = n + 1;
+          if (next >= 3) { toast.error("Auto-submitting — too many tab switches."); submit(); }
+          else toast.warning(`Warning: tab switch detected (${next}/3). Stay on this page.`);
+          return next;
+        });
+      }
+    }
+    document.addEventListener("visibilitychange", onHide);
+    return () => document.removeEventListener("visibilitychange", onHide);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
+
+  async function enterFullscreen() {
+    try { await document.documentElement.requestFullscreen(); } catch { /* user denied */ }
+  }
+
   const submitMut = useMutation({
     mutationFn: async () => {
       const payload = Object.entries(answers).map(([questionId, choice]) => ({ questionId, choice }));
       return submitFn({ data: { subjectSlug: slug, answers: payload, durationSeconds: Math.round((Date.now() - startedAt.current)/1000) } });
     },
-    onSuccess: (r) => { setResult(r); toast.success(`Score: ${r.score}/${r.total}`); },
+    onSuccess: (r) => { setResult(r); toast.success(`Score: ${r.score}/${r.total}`); if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); },
     onError: (e: any) => toast.error(e.message ?? "Submission failed"),
   });
   const submit = () => { if (!submitMut.isPending && !result) submitMut.mutate(); };
@@ -105,8 +128,12 @@ function CbtDrill() {
             <p className="text-xs uppercase tracking-widest font-ui font-bold text-muted-foreground">{data.subject.exam_type} · {data.subject.name}</p>
             <h1 className="font-display text-2xl font-black">Question {cur + 1} of {questions.length}</h1>
           </div>
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono font-bold tabular-nums ${secondsLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"}`}>
-            <Timer className="size-4" /> {mm}:{ss}
+          <div className="flex items-center gap-2">
+            <button onClick={enterFullscreen} className="hidden sm:inline-flex text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted">Fullscreen</button>
+            {switches > 0 && <span className="text-xs px-2 py-1 rounded-full bg-destructive/10 text-destructive font-ui font-semibold">⚠ {switches}/3</span>}
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono font-bold tabular-nums ${secondsLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"}`}>
+              <Timer className="size-4" /> {mm}:{ss}
+            </div>
           </div>
         </div>
 

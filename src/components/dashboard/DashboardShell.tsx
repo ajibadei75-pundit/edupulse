@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { to: "/dashboard/ai-tutor", label: "AI Tutor", icon: Sparkles },
   { to: "/dashboard/courses", label: "Courses", icon: BookOpen },
   { to: "/dashboard/cbt", label: "CBT Practice", icon: Brain },
   { to: "/dashboard/results", label: "Results & Match", icon: GraduationCap },
@@ -20,6 +21,14 @@ const NAV = [
   { to: "/dashboard/certificates", label: "Certificates", icon: Award },
   { to: "/dashboard/wallet", label: "Wallet", icon: Wallet },
   { to: "/dashboard/profile", label: "Profile", icon: UserCircle },
+] as const;
+
+const TUTOR_NAV = [
+  { to: "/dashboard/tutor", label: "Tutor console", icon: BookOpenCheck },
+] as const;
+
+const PARENT_NAV = [
+  { to: "/dashboard/parent", label: "Parent dashboard", icon: Baby },
 ] as const;
 
 const ADMIN_NAV = [
@@ -38,7 +47,10 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isAdmin = (roles ?? []).some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+  const roleList = roles ?? [];
+  const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+  const isTutor = roleList.includes("tutor") || isAdmin;
+  const isParent = roleList.includes("parent");
 
   async function signOut() {
     await qc.cancelQueries();
@@ -78,6 +90,40 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                 </Link>
               );
             })}
+            {isTutor && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Tutor</p>
+                {TUTOR_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-secondary text-secondary-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+            {isParent && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Parent</p>
+                {PARENT_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-highlight text-highlight-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
             {isAdmin && (
               <div className="mt-4 pt-3 border-t border-border space-y-1">
                 <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Admin</p>
