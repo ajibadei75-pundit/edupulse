@@ -128,8 +128,12 @@ function CbtDrill() {
             <p className="text-xs uppercase tracking-widest font-ui font-bold text-muted-foreground">{data.subject.exam_type} · {data.subject.name}</p>
             <h1 className="font-display text-2xl font-black">Question {cur + 1} of {questions.length}</h1>
           </div>
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono font-bold tabular-nums ${secondsLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"}`}>
-            <Timer className="size-4" /> {mm}:{ss}
+          <div className="flex items-center gap-2">
+            <button onClick={enterFullscreen} className="hidden sm:inline-flex text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted">Fullscreen</button>
+            {switches > 0 && <span className="text-xs px-2 py-1 rounded-full bg-destructive/10 text-destructive font-ui font-semibold">⚠ {switches}/3</span>}
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono font-bold tabular-nums ${secondsLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"}`}>
+              <Timer className="size-4" /> {mm}:{ss}
+            </div>
           </div>
         </div>
 
