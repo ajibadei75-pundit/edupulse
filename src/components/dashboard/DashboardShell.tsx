@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { to: "/dashboard/ai-tutor", label: "AI Tutor", icon: Sparkles },
   { to: "/dashboard/courses", label: "Courses", icon: BookOpen },
   { to: "/dashboard/cbt", label: "CBT Practice", icon: Brain },
   { to: "/dashboard/results", label: "Results & Match", icon: GraduationCap },
@@ -20,6 +21,14 @@ const NAV = [
   { to: "/dashboard/certificates", label: "Certificates", icon: Award },
   { to: "/dashboard/wallet", label: "Wallet", icon: Wallet },
   { to: "/dashboard/profile", label: "Profile", icon: UserCircle },
+] as const;
+
+const TUTOR_NAV = [
+  { to: "/dashboard/tutor", label: "Tutor console", icon: BookOpenCheck },
+] as const;
+
+const PARENT_NAV = [
+  { to: "/dashboard/parent", label: "Parent dashboard", icon: Baby },
 ] as const;
 
 const ADMIN_NAV = [
