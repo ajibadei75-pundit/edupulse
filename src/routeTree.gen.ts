@@ -27,6 +27,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardCbtRouteRouteImport } from './routes/_authenticated/dashboard/cbt/route'
@@ -133,6 +134,11 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => EventsRoute,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedDashboardRouteRoute =
   AuthenticatedDashboardRouteRouteImport.update({
@@ -255,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
@@ -327,6 +335,7 @@ export interface FileRoutesById {
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -365,6 +374,7 @@ export interface FileRouteTypes {
     | '/school-finder'
     | '/sponsors'
     | '/dashboard'
+    | '/api/chat'
     | '/events/$slug'
     | '/dashboard/cbt'
     | '/dashboard/'
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
+    | '/api/chat'
     | '/events/$slug'
     | '/dashboard'
     | '/dashboard/cbt/$slug'
@@ -436,6 +447,7 @@ export interface FileRouteTypes {
     | '/school-finder'
     | '/sponsors'
     | '/_authenticated/dashboard'
+    | '/api/chat'
     | '/events/$slug'
     | '/_authenticated/dashboard/cbt'
     | '/_authenticated/dashboard/'
@@ -473,6 +485,7 @@ export interface RootRouteChildren {
   ScholarshipsRoute: typeof ScholarshipsRoute
   SchoolFinderRoute: typeof SchoolFinderRoute
   SponsorsRoute: typeof SponsorsRoute
+  ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -602,6 +615,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/events/$slug'
       preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof EventsRoute
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
@@ -835,6 +855,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScholarshipsRoute: ScholarshipsRoute,
   SchoolFinderRoute: SchoolFinderRoute,
   SponsorsRoute: SponsorsRoute,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
