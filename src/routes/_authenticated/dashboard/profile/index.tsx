@@ -17,8 +17,10 @@ export const Route = createFileRoute("/_authenticated/dashboard/profile/")({
 function ProfilePage() {
   const getFn = useServerFn(getMyProfile);
   const updFn = useServerFn(updateMyProfile);
+  const codeFn = useServerFn(getMyInviteCode);
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["profile","me"], queryFn: () => getFn() });
+  const { data: inviteCode } = useQuery({ queryKey: ["profile","invite"], queryFn: () => codeFn() });
   const [form, setForm] = useState({ full_name: "", school: "", level: "", bio: "" });
 
   useEffect(() => {
@@ -35,6 +37,20 @@ function ProfilePage() {
     <DashboardShell>
       <div className="p-6 sm:p-10 max-w-2xl">
         <PageTitle title="Profile" subtitle="How you appear across EduPulse." />
+
+        {inviteCode && (
+          <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 mb-6">
+            <div className="flex items-center gap-2 mb-1"><KeyRound className="size-4 text-primary" /><h3 className="font-ui font-bold">Invite code</h3></div>
+            <p className="text-xs text-muted-foreground mb-3">Share this with a parent or guardian so they can link to your account.</p>
+            <div className="flex items-center gap-2">
+              <code className="flex-1 font-mono text-lg tracking-widest bg-background border border-border rounded-lg px-4 py-2.5">{inviteCode}</code>
+              <Button type="button" variant="outline" className="rounded-lg" onClick={() => { navigator.clipboard.writeText(inviteCode); toast.success("Copied."); }}>
+                <Copy className="size-4" />
+              </Button>
+            </div>
+          </div>
+        )}
+
         <form className="bg-card border border-border rounded-2xl p-6 space-y-4" onSubmit={(e) => { e.preventDefault(); m.mutate(); }}>
           <div>
             <label className="text-sm font-ui font-medium mb-1.5 block">Full name</label>
