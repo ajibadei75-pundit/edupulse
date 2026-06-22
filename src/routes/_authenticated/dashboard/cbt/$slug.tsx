@@ -27,6 +27,7 @@ function CbtDrill() {
   const [cur, setCur] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(DURATION);
   const [result, setResult] = useState<{ score: number; total: number; review: any[] } | null>(null);
+  const [switches, setSwitches] = useState(0);
   const startedAt = useRef<number>(Date.now());
 
   useEffect(() => { startedAt.current = Date.now(); }, [data?.subject?.id]);
@@ -41,12 +42,34 @@ function CbtDrill() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
+  // Anti-cheat: count tab switches; auto-submit at 3
+  useEffect(() => {
+    if (result) return;
+    function onHide() {
+      if (document.hidden) {
+        setSwitches((n) => {
+          const next = n + 1;
+          if (next >= 3) { toast.error("Auto-submitting — too many tab switches."); submit(); }
+          else toast.warning(`Warning: tab switch detected (${next}/3). Stay on this page.`);
+          return next;
+        });
+      }
+    }
+    document.addEventListener("visibilitychange", onHide);
+    return () => document.removeEventListener("visibilitychange", onHide);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
+
+  async function enterFullscreen() {
+    try { await document.documentElement.requestFullscreen(); } catch { /* user denied */ }
+  }
+
   const submitMut = useMutation({
     mutationFn: async () => {
       const payload = Object.entries(answers).map(([questionId, choice]) => ({ questionId, choice }));
       return submitFn({ data: { subjectSlug: slug, answers: payload, durationSeconds: Math.round((Date.now() - startedAt.current)/1000) } });
     },
-    onSuccess: (r) => { setResult(r); toast.success(`Score: ${r.score}/${r.total}`); },
+    onSuccess: (r) => { setResult(r); toast.success(`Score: ${r.score}/${r.total}`); if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); },
     onError: (e: any) => toast.error(e.message ?? "Submission failed"),
   });
   const submit = () => { if (!submitMut.isPending && !result) submitMut.mutate(); };
