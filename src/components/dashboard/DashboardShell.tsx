@@ -47,7 +47,10 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isAdmin = (roles ?? []).some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+  const roleList = roles ?? [];
+  const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+  const isTutor = roleList.includes("tutor") || isAdmin;
+  const isParent = roleList.includes("parent");
 
   async function signOut() {
     await qc.cancelQueries();
