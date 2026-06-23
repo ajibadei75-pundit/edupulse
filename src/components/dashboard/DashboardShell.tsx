@@ -154,7 +154,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </aside>
-        <div className="min-w-0">{children}</div>
+        <div className="min-w-0">
+          <header className="hidden lg:flex sticky top-0 z-30 h-14 items-center justify-end gap-2 px-6 bg-background/80 backdrop-blur border-b border-border">
+            <NotificationBell />
+          </header>
+          {children}
+        </div>
       </div>
     </div>
   );
