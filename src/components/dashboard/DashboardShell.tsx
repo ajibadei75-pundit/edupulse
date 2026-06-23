@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,9 +8,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getMyRoles } from "@/lib/app.functions";
 import { toast } from "sonner";
+import { NotificationBell } from "@/components/dashboard/NotificationBell";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { to: "/dashboard/live-classes", label: "Live Classes", icon: Radio },
+  { to: "/dashboard/library", label: "Library", icon: Library },
   { to: "/dashboard/ai-tutor", label: "AI Tutor", icon: Sparkles },
   { to: "/dashboard/courses", label: "Courses", icon: BookOpen },
   { to: "/dashboard/cbt", label: "CBT Practice", icon: Brain },
