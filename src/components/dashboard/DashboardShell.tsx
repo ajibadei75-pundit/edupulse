@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,9 +8,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getMyRoles } from "@/lib/app.functions";
 import { toast } from "sonner";
+import { NotificationBell } from "@/components/dashboard/NotificationBell";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { to: "/dashboard/live-classes", label: "Live Classes", icon: Radio },
+  { to: "/dashboard/library", label: "Library", icon: Library },
   { to: "/dashboard/ai-tutor", label: "AI Tutor", icon: Sparkles },
   { to: "/dashboard/courses", label: "Courses", icon: BookOpen },
   { to: "/dashboard/cbt", label: "CBT Practice", icon: Brain },
@@ -65,9 +68,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       {/* Top bar mobile */}
       <header className="lg:hidden sticky top-0 z-40 bg-background/90 backdrop-blur border-b border-border h-14 px-4 flex items-center justify-between">
         <Logo />
-        <button aria-label="Menu" onClick={() => setOpen((v) => !v)} className="p-2 rounded-lg hover:bg-muted">
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <NotificationBell />
+          <button aria-label="Menu" onClick={() => setOpen((v) => !v)} className="p-2 rounded-lg hover:bg-muted">
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </header>
 
       <div className="lg:grid lg:grid-cols-[260px_1fr]">
@@ -148,7 +154,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </aside>
-        <div className="min-w-0">{children}</div>
+        <div className="min-w-0">
+          <header className="hidden lg:flex sticky top-0 z-30 h-14 items-center justify-end gap-2 px-6 bg-background/80 backdrop-blur border-b border-border">
+            <NotificationBell />
+          </header>
+          {children}
+        </div>
       </div>
     </div>
   );

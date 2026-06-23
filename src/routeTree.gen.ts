@@ -36,6 +36,8 @@ import { Route as AuthenticatedDashboardTutorIndexRouteImport } from './routes/_
 import { Route as AuthenticatedDashboardResultsIndexRouteImport } from './routes/_authenticated/dashboard/results/index'
 import { Route as AuthenticatedDashboardProfileIndexRouteImport } from './routes/_authenticated/dashboard/profile/index'
 import { Route as AuthenticatedDashboardParentIndexRouteImport } from './routes/_authenticated/dashboard/parent/index'
+import { Route as AuthenticatedDashboardLiveClassesIndexRouteImport } from './routes/_authenticated/dashboard/live-classes/index'
+import { Route as AuthenticatedDashboardLibraryIndexRouteImport } from './routes/_authenticated/dashboard/library/index'
 import { Route as AuthenticatedDashboardLeaderboardIndexRouteImport } from './routes/_authenticated/dashboard/leaderboard/index'
 import { Route as AuthenticatedDashboardFeedbackIndexRouteImport } from './routes/_authenticated/dashboard/feedback/index'
 import { Route as AuthenticatedDashboardEventsIndexRouteImport } from './routes/_authenticated/dashboard/events/index'
@@ -191,6 +193,18 @@ const AuthenticatedDashboardParentIndexRoute =
     path: '/parent/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardLiveClassesIndexRoute =
+  AuthenticatedDashboardLiveClassesIndexRouteImport.update({
+    id: '/live-classes/',
+    path: '/live-classes/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardLibraryIndexRoute =
+  AuthenticatedDashboardLibraryIndexRouteImport.update({
+    id: '/library/',
+    path: '/library/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardLeaderboardIndexRoute =
   AuthenticatedDashboardLeaderboardIndexRouteImport.update({
     id: '/leaderboard/',
@@ -298,6 +312,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
   '/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/library/': typeof AuthenticatedDashboardLibraryIndexRoute
+  '/dashboard/live-classes/': typeof AuthenticatedDashboardLiveClassesIndexRoute
   '/dashboard/parent/': typeof AuthenticatedDashboardParentIndexRoute
   '/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
   '/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
@@ -336,6 +352,8 @@ export interface FileRoutesByTo {
   '/dashboard/events': typeof AuthenticatedDashboardEventsIndexRoute
   '/dashboard/feedback': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/dashboard/leaderboard': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/dashboard/library': typeof AuthenticatedDashboardLibraryIndexRoute
+  '/dashboard/live-classes': typeof AuthenticatedDashboardLiveClassesIndexRoute
   '/dashboard/parent': typeof AuthenticatedDashboardParentIndexRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileIndexRoute
   '/dashboard/results': typeof AuthenticatedDashboardResultsIndexRoute
@@ -378,6 +396,8 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/events/': typeof AuthenticatedDashboardEventsIndexRoute
   '/_authenticated/dashboard/feedback/': typeof AuthenticatedDashboardFeedbackIndexRoute
   '/_authenticated/dashboard/leaderboard/': typeof AuthenticatedDashboardLeaderboardIndexRoute
+  '/_authenticated/dashboard/library/': typeof AuthenticatedDashboardLibraryIndexRoute
+  '/_authenticated/dashboard/live-classes/': typeof AuthenticatedDashboardLiveClassesIndexRoute
   '/_authenticated/dashboard/parent/': typeof AuthenticatedDashboardParentIndexRoute
   '/_authenticated/dashboard/profile/': typeof AuthenticatedDashboardProfileIndexRoute
   '/_authenticated/dashboard/results/': typeof AuthenticatedDashboardResultsIndexRoute
@@ -420,6 +440,8 @@ export interface FileRouteTypes {
     | '/dashboard/events/'
     | '/dashboard/feedback/'
     | '/dashboard/leaderboard/'
+    | '/dashboard/library/'
+    | '/dashboard/live-classes/'
     | '/dashboard/parent/'
     | '/dashboard/profile/'
     | '/dashboard/results/'
@@ -458,6 +480,8 @@ export interface FileRouteTypes {
     | '/dashboard/events'
     | '/dashboard/feedback'
     | '/dashboard/leaderboard'
+    | '/dashboard/library'
+    | '/dashboard/live-classes'
     | '/dashboard/parent'
     | '/dashboard/profile'
     | '/dashboard/results'
@@ -499,6 +523,8 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/events/'
     | '/_authenticated/dashboard/feedback/'
     | '/_authenticated/dashboard/leaderboard/'
+    | '/_authenticated/dashboard/library/'
+    | '/_authenticated/dashboard/live-classes/'
     | '/_authenticated/dashboard/parent/'
     | '/_authenticated/dashboard/profile/'
     | '/_authenticated/dashboard/results/'
@@ -718,6 +744,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardParentIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/live-classes/': {
+      id: '/_authenticated/dashboard/live-classes/'
+      path: '/live-classes'
+      fullPath: '/dashboard/live-classes/'
+      preLoaderRoute: typeof AuthenticatedDashboardLiveClassesIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/library/': {
+      id: '/_authenticated/dashboard/library/'
+      path: '/library'
+      fullPath: '/dashboard/library/'
+      preLoaderRoute: typeof AuthenticatedDashboardLibraryIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/leaderboard/': {
       id: '/_authenticated/dashboard/leaderboard/'
       path: '/leaderboard'
@@ -834,6 +874,8 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardEventsIndexRoute: typeof AuthenticatedDashboardEventsIndexRoute
   AuthenticatedDashboardFeedbackIndexRoute: typeof AuthenticatedDashboardFeedbackIndexRoute
   AuthenticatedDashboardLeaderboardIndexRoute: typeof AuthenticatedDashboardLeaderboardIndexRoute
+  AuthenticatedDashboardLibraryIndexRoute: typeof AuthenticatedDashboardLibraryIndexRoute
+  AuthenticatedDashboardLiveClassesIndexRoute: typeof AuthenticatedDashboardLiveClassesIndexRoute
   AuthenticatedDashboardParentIndexRoute: typeof AuthenticatedDashboardParentIndexRoute
   AuthenticatedDashboardProfileIndexRoute: typeof AuthenticatedDashboardProfileIndexRoute
   AuthenticatedDashboardResultsIndexRoute: typeof AuthenticatedDashboardResultsIndexRoute
@@ -866,6 +908,10 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
       AuthenticatedDashboardFeedbackIndexRoute,
     AuthenticatedDashboardLeaderboardIndexRoute:
       AuthenticatedDashboardLeaderboardIndexRoute,
+    AuthenticatedDashboardLibraryIndexRoute:
+      AuthenticatedDashboardLibraryIndexRoute,
+    AuthenticatedDashboardLiveClassesIndexRoute:
+      AuthenticatedDashboardLiveClassesIndexRoute,
     AuthenticatedDashboardParentIndexRoute:
       AuthenticatedDashboardParentIndexRoute,
     AuthenticatedDashboardProfileIndexRoute:
@@ -929,13 +975,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
