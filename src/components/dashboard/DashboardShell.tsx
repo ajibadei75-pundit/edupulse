@@ -68,9 +68,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       {/* Top bar mobile */}
       <header className="lg:hidden sticky top-0 z-40 bg-background/90 backdrop-blur border-b border-border h-14 px-4 flex items-center justify-between">
         <Logo />
-        <button aria-label="Menu" onClick={() => setOpen((v) => !v)} className="p-2 rounded-lg hover:bg-muted">
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <NotificationBell />
+          <button aria-label="Menu" onClick={() => setOpen((v) => !v)} className="p-2 rounded-lg hover:bg-muted">
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </header>
 
       <div className="lg:grid lg:grid-cols-[260px_1fr]">
