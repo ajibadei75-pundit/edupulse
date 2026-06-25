@@ -5,7 +5,7 @@ import { z } from "zod";
 async function assertCanAuthor(ctx: { supabase: any; userId: string }) {
   const { data } = await ctx.supabase.from("user_roles").select("role").eq("user_id", ctx.userId);
   const roles = (data ?? []).map((r: any) => r.role as string);
-  const ok = roles.some((r) => ["tutor", "hod", "admin", "super_admin", "content_admin"].includes(r));
+  const ok = roles.some((r: string) => ["tutor", "hod", "admin", "super_admin", "content_admin"].includes(r));
   if (!ok) throw new Error("Forbidden — tutor/HOD/admin role required");
 }
 

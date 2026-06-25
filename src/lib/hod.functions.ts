@@ -5,7 +5,7 @@ import { z } from "zod";
 async function assertHodOrAdmin(ctx: { supabase: any; userId: string }) {
   const { data } = await ctx.supabase.from("user_roles").select("role").eq("user_id", ctx.userId);
   const roles = (data ?? []).map((r: any) => r.role as string);
-  const ok = roles.some((r) => ["hod", "admin", "super_admin"].includes(r));
+  const ok = roles.some((r: string) => ["hod", "admin", "super_admin"].includes(r));
   if (!ok) throw new Error("Forbidden — HOD or admin role required");
   return roles;
 }
