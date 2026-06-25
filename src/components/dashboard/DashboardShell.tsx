@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library, Briefcase, FolderKanban } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,6 +28,12 @@ const NAV = [
 
 const TUTOR_NAV = [
   { to: "/dashboard/tutor", label: "Tutor console", icon: BookOpenCheck },
+  { to: "/dashboard/tutor/courses", label: "My courses", icon: FolderKanban },
+  { to: "/dashboard/counselor", label: "Counselor inbox", icon: HeartHandshake },
+] as const;
+
+const HOD_NAV = [
+  { to: "/dashboard/hod", label: "HOD console", icon: Briefcase },
 ] as const;
 
 const PARENT_NAV = [
@@ -52,7 +58,8 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
   const roleList = roles ?? [];
   const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
-  const isTutor = roleList.includes("tutor") || isAdmin;
+  const isHod = roleList.includes("hod") || isAdmin;
+  const isTutor = roleList.includes("tutor") || isHod;
   const isParent = roleList.includes("parent");
 
   async function signOut() {
