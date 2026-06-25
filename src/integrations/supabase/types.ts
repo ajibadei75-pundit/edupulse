@@ -261,6 +261,7 @@ export type Database = {
       }
       counseling_sessions: {
         Row: {
+          counselor_id: string | null
           created_at: string
           id: string
           notes: string | null
@@ -271,6 +272,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          counselor_id?: string | null
           created_at?: string
           id?: string
           notes?: string | null
@@ -281,6 +283,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          counselor_id?: string | null
           created_at?: string
           id?: string
           notes?: string | null
@@ -297,6 +300,8 @@ export type Database = {
           category: string
           cover_url: string | null
           created_at: string
+          created_by: string | null
+          department: string | null
           description: string | null
           duration_hours: number | null
           id: string
@@ -309,6 +314,8 @@ export type Database = {
           category: string
           cover_url?: string | null
           created_at?: string
+          created_by?: string | null
+          department?: string | null
           description?: string | null
           duration_hours?: number | null
           id?: string
@@ -321,6 +328,8 @@ export type Database = {
           category?: string
           cover_url?: string | null
           created_at?: string
+          created_by?: string | null
+          department?: string | null
           description?: string | null
           duration_hours?: number | null
           id?: string
@@ -333,23 +342,32 @@ export type Database = {
       }
       enrollments: {
         Row: {
+          completed: boolean
+          completed_at: string | null
           course_id: string
           enrolled_at: string
           id: string
+          last_lesson_id: string | null
           progress: number
           user_id: string
         }
         Insert: {
+          completed?: boolean
+          completed_at?: string | null
           course_id: string
           enrolled_at?: string
           id?: string
+          last_lesson_id?: string | null
           progress?: number
           user_id: string
         }
         Update: {
+          completed?: boolean
+          completed_at?: string | null
           course_id?: string
           enrolled_at?: string
           id?: string
+          last_lesson_id?: string | null
           progress?: number
           user_id?: string
         }
@@ -359,6 +377,13 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "enrollments_last_lesson_id_fkey"
+            columns: ["last_lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
             referencedColumns: ["id"]
           },
         ]
@@ -813,6 +838,7 @@ export type Database = {
           bio: string | null
           country: string | null
           created_at: string
+          department: string | null
           full_name: string | null
           goals: string | null
           id: string
@@ -830,6 +856,7 @@ export type Database = {
           bio?: string | null
           country?: string | null
           created_at?: string
+          department?: string | null
           full_name?: string | null
           goals?: string | null
           id: string
@@ -847,6 +874,7 @@ export type Database = {
           bio?: string | null
           country?: string | null
           created_at?: string
+          department?: string | null
           full_name?: string | null
           goals?: string | null
           id?: string
@@ -1124,6 +1152,7 @@ export type Database = {
         | "finance_admin"
         | "islamic_admin"
         | "parent"
+        | "hod"
       counseling_type: "academic" | "career" | "admission" | "personal"
       exam_type:
         | "waec"
@@ -1270,6 +1299,7 @@ export const Constants = {
         "finance_admin",
         "islamic_admin",
         "parent",
+        "hod",
       ],
       counseling_type: ["academic", "career", "admission", "personal"],
       exam_type: ["waec", "jamb", "neco", "post_utme", "professional", "mock"],
