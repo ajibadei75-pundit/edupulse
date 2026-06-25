@@ -137,6 +137,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                 })}
               </div>
             )}
+            {isParent && (
               <div className="mt-4 pt-3 border-t border-border space-y-1">
                 <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Parent</p>
                 {PARENT_NAV.map((n) => {
