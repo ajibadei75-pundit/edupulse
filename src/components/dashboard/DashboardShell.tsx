@@ -9,6 +9,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { getMyRoles } from "@/lib/app.functions";
 import { toast } from "sonner";
 import { NotificationBell } from "@/components/dashboard/NotificationBell";
+import { LiveClassBanner } from "@/components/dashboard/LiveClassBanner";
+import { PendingApprovalGate } from "@/components/dashboard/PendingApprovalGate";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -42,6 +44,8 @@ const PARENT_NAV = [
 
 const ADMIN_NAV = [
   { to: "/dashboard/admin", label: "Admin console", icon: ShieldCheck },
+  { to: "/dashboard/admin/approvals", label: "Student approvals", icon: UserCircle },
+  { to: "/dashboard/admin/branding", label: "Branding & settings", icon: Sparkles },
   { to: "/dashboard/events", label: "Events", icon: Calendar },
   { to: "/dashboard/feedback", label: "Feedback", icon: MessageCircle },
 ] as const;
@@ -182,7 +186,8 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           <header className="hidden lg:flex sticky top-0 z-30 h-14 items-center justify-end gap-2 px-6 bg-background/80 backdrop-blur border-b border-border">
             <NotificationBell />
           </header>
-          {children}
+          <LiveClassBanner />
+          <PendingApprovalGate>{children}</PendingApprovalGate>
         </div>
       </div>
     </div>

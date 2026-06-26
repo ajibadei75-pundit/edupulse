@@ -52,6 +52,8 @@ import { Route as AuthenticatedDashboardAiTutorIndexRouteImport } from './routes
 import { Route as AuthenticatedDashboardAdminIndexRouteImport } from './routes/_authenticated/dashboard/admin/index'
 import { Route as AuthenticatedDashboardEventsSlugRouteImport } from './routes/_authenticated/dashboard/events/$slug'
 import { Route as AuthenticatedDashboardCbtSlugRouteImport } from './routes/_authenticated/dashboard/cbt/$slug'
+import { Route as AuthenticatedDashboardAdminBrandingRouteImport } from './routes/_authenticated/dashboard/admin/branding'
+import { Route as AuthenticatedDashboardAdminApprovalsRouteImport } from './routes/_authenticated/dashboard/admin/approvals'
 import { Route as AuthenticatedDashboardTutorCoursesIndexRouteImport } from './routes/_authenticated/dashboard/tutor/courses/index'
 import { Route as AuthenticatedDashboardTutorCoursesCourseIdRouteImport } from './routes/_authenticated/dashboard/tutor/courses/$courseId'
 
@@ -293,6 +295,18 @@ const AuthenticatedDashboardCbtSlugRoute =
     path: '/$slug',
     getParentRoute: () => AuthenticatedDashboardCbtRouteRoute,
   } as any)
+const AuthenticatedDashboardAdminBrandingRoute =
+  AuthenticatedDashboardAdminBrandingRouteImport.update({
+    id: '/admin/branding',
+    path: '/admin/branding',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardAdminApprovalsRoute =
+  AuthenticatedDashboardAdminApprovalsRouteImport.update({
+    id: '/admin/approvals',
+    path: '/admin/approvals',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardTutorCoursesIndexRoute =
   AuthenticatedDashboardTutorCoursesIndexRouteImport.update({
     id: '/tutor/courses/',
@@ -328,6 +342,8 @@ export interface FileRoutesByFullPath {
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
+  '/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
@@ -372,6 +388,8 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
+  '/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminIndexRoute
@@ -420,6 +438,8 @@ export interface FileRoutesById {
   '/events/$slug': typeof EventsSlugRoute
   '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
+  '/_authenticated/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/_authenticated/dashboard/cbt/$slug': typeof AuthenticatedDashboardCbtSlugRoute
   '/_authenticated/dashboard/events/$slug': typeof AuthenticatedDashboardEventsSlugRoute
   '/_authenticated/dashboard/admin/': typeof AuthenticatedDashboardAdminIndexRoute
@@ -468,6 +488,8 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/dashboard/cbt'
     | '/dashboard/'
+    | '/dashboard/admin/approvals'
+    | '/dashboard/admin/branding'
     | '/dashboard/cbt/$slug'
     | '/dashboard/events/$slug'
     | '/dashboard/admin/'
@@ -512,6 +534,8 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/events/$slug'
     | '/dashboard'
+    | '/dashboard/admin/approvals'
+    | '/dashboard/admin/branding'
     | '/dashboard/cbt/$slug'
     | '/dashboard/events/$slug'
     | '/dashboard/admin'
@@ -559,6 +583,8 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/_authenticated/dashboard/cbt'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/dashboard/admin/approvals'
+    | '/_authenticated/dashboard/admin/branding'
     | '/_authenticated/dashboard/cbt/$slug'
     | '/_authenticated/dashboard/events/$slug'
     | '/_authenticated/dashboard/admin/'
@@ -908,6 +934,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardCbtSlugRouteImport
       parentRoute: typeof AuthenticatedDashboardCbtRouteRoute
     }
+    '/_authenticated/dashboard/admin/branding': {
+      id: '/_authenticated/dashboard/admin/branding'
+      path: '/admin/branding'
+      fullPath: '/dashboard/admin/branding'
+      preLoaderRoute: typeof AuthenticatedDashboardAdminBrandingRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/admin/approvals': {
+      id: '/_authenticated/dashboard/admin/approvals'
+      path: '/admin/approvals'
+      fullPath: '/dashboard/admin/approvals'
+      preLoaderRoute: typeof AuthenticatedDashboardAdminApprovalsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/tutor/courses/': {
       id: '/_authenticated/dashboard/tutor/courses/'
       path: '/tutor/courses'
@@ -944,6 +984,8 @@ const AuthenticatedDashboardCbtRouteRouteWithChildren =
 interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardCbtRouteRoute: typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardAdminApprovalsRoute: typeof AuthenticatedDashboardAdminApprovalsRoute
+  AuthenticatedDashboardAdminBrandingRoute: typeof AuthenticatedDashboardAdminBrandingRoute
   AuthenticatedDashboardEventsSlugRoute: typeof AuthenticatedDashboardEventsSlugRoute
   AuthenticatedDashboardAdminIndexRoute: typeof AuthenticatedDashboardAdminIndexRoute
   AuthenticatedDashboardAiTutorIndexRoute: typeof AuthenticatedDashboardAiTutorIndexRoute
@@ -972,6 +1014,10 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardCbtRouteRoute:
       AuthenticatedDashboardCbtRouteRouteWithChildren,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+    AuthenticatedDashboardAdminApprovalsRoute:
+      AuthenticatedDashboardAdminApprovalsRoute,
+    AuthenticatedDashboardAdminBrandingRoute:
+      AuthenticatedDashboardAdminBrandingRoute,
     AuthenticatedDashboardEventsSlugRoute:
       AuthenticatedDashboardEventsSlugRoute,
     AuthenticatedDashboardAdminIndexRoute:

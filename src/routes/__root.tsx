@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { FeedbackWidget } from "@/components/site/FeedbackWidget";
+import { WelcomeSplash } from "@/components/site/WelcomeSplash";
 
 function NotFoundComponent() {
   return (
@@ -121,9 +122,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <WelcomeSplash />
       <Outlet />
       <FeedbackWidget />
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );
 }

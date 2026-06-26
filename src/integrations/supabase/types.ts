@@ -644,7 +644,9 @@ export type Database = {
       }
       live_classes: {
         Row: {
+          course_id: string | null
           created_at: string
+          department: string | null
           description: string | null
           duration_minutes: number
           host_id: string
@@ -656,7 +658,9 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          course_id?: string | null
           created_at?: string
+          department?: string | null
           description?: string | null
           duration_minutes?: number
           host_id: string
@@ -668,7 +672,9 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          course_id?: string | null
           created_at?: string
+          department?: string | null
           description?: string | null
           duration_minutes?: number
           host_id?: string
@@ -679,7 +685,15 @@ export type Database = {
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "live_classes_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       news_items: {
         Row: {
@@ -834,6 +848,9 @@ export type Database = {
       }
       profiles: {
         Row: {
+          approval_status: string
+          approved_at: string | null
+          approved_by: string | null
           avatar_url: string | null
           bio: string | null
           country: string | null
@@ -852,6 +869,9 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          approval_status?: string
+          approved_at?: string | null
+          approved_by?: string | null
           avatar_url?: string | null
           bio?: string | null
           country?: string | null
@@ -870,6 +890,9 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          approval_status?: string
+          approved_at?: string | null
+          approved_by?: string | null
           avatar_url?: string | null
           bio?: string | null
           country?: string | null
@@ -1047,6 +1070,45 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          address: string | null
+          favicon_url: string | null
+          id: boolean
+          logo_url: string | null
+          site_name: string
+          support_email: string | null
+          support_phone: string | null
+          tagline: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address?: string | null
+          favicon_url?: string | null
+          id?: boolean
+          logo_url?: string | null
+          site_name?: string
+          support_email?: string | null
+          support_phone?: string | null
+          tagline?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address?: string | null
+          favicon_url?: string | null
+          id?: boolean
+          logo_url?: string | null
+          site_name?: string
+          support_email?: string | null
+          support_phone?: string | null
+          tagline?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       student_results: {
         Row: {
           created_at: string
@@ -1138,7 +1200,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_approved: { Args: { _uid: string }; Returns: boolean }
       link_student_by_code: { Args: { _code: string }; Returns: string }
+      set_student_approval: {
+        Args: { _status: string; _student: string }
+        Returns: undefined
+      }
       verify_certificate: {
         Args: { _code: string }
         Returns: {
