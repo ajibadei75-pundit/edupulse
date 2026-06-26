@@ -1124,6 +1124,13 @@ export type Database = {
           user_id: string
         }[]
       }
+      get_my_private_profile: {
+        Args: never
+        Returns: {
+          invite_code: string
+          phone: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

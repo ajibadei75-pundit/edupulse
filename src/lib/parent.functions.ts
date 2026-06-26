@@ -30,7 +30,7 @@ export const getMyChildren = createServerFn({ method: "GET" })
     if (!ids.length) return [];
 
     const [{ data: profiles }, { data: attempts }, { data: enrolls }] = await Promise.all([
-      context.supabase.from("profiles").select("id,full_name,avatar_url,school,level,invite_code").in("id", ids),
+      context.supabase.from("profiles").select("id,full_name,avatar_url,school,level").in("id", ids),
       context.supabase.from("cbt_attempts").select("user_id,score,total,completed_at,cbt_subjects(name,exam_type)").in("user_id", ids).order("completed_at", { ascending: false }).limit(50),
       context.supabase.from("enrollments").select("user_id,progress,courses(title,category)").in("user_id", ids),
     ]);
@@ -45,6 +45,8 @@ export const getMyChildren = createServerFn({ method: "GET" })
 export const getMyInviteCode = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.from("profiles").select("invite_code").eq("id", context.userId).maybeSingle();
-    return data?.invite_code ?? null;
+    const { data } = await context.supabase.rpc("get_my_private_profile");
+    const row = Array.isArray(data) ? data[0] : data;
+    return row?.invite_code ?? null;
   });
+

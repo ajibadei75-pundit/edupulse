@@ -5,8 +5,9 @@ import { z } from "zod";
 async function assertCounselor(ctx: { supabase: any; userId: string }) {
   const { data } = await ctx.supabase.from("user_roles").select("role").eq("user_id", ctx.userId);
   const roles = (data ?? []).map((r: any) => r.role as string);
-  const ok = roles.some((r: string) => ["tutor", "admin", "super_admin", "hod"].includes(r));
+  const ok = roles.some((r: string) => ["admin", "super_admin", "hod"].includes(r));
   if (!ok) throw new Error("Forbidden — counselor role required");
+
 }
 
 export const listCounselingQueue = createServerFn({ method: "GET" })

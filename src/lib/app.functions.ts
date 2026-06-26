@@ -5,9 +5,16 @@ import { z } from "zod";
 export const getMyProfile = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.from("profiles").select("*").eq("id", context.userId).maybeSingle();
-    return data;
+    const [{ data }, { data: priv }] = await Promise.all([
+      context.supabase.from("profiles")
+        .select("id,full_name,avatar_url,school,level,bio,streak_days,created_at,updated_at,country,institution,interests,goals,department")
+        .eq("id", context.userId).maybeSingle(),
+      context.supabase.rpc("get_my_private_profile"),
+    ]);
+    const p = Array.isArray(priv) ? priv[0] : priv;
+    return data ? { ...data, phone: p?.phone ?? null, invite_code: p?.invite_code ?? null } : null;
   });
+
 
 export const updateMyProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
