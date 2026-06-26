@@ -18,12 +18,13 @@ export function NotificationBell() {
   const { data: items = [] } = useQuery({ queryKey: ["notifications"], queryFn: () => listFn(), refetchInterval: 60_000 });
   const unread = (items as any[]).filter((n) => !n.read_at).length;
 
+  const channelId = useId();
   useEffect(() => {
-    const ch = supabase.channel("notif-rt")
+    const ch = supabase.channel(`notif-rt-${channelId}-${Math.random().toString(36).slice(2,8)}`)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" }, () => qc.invalidateQueries({ queryKey: ["notifications"] }))
       .subscribe();
     return () => { supabase.removeChannel(ch); };
-  }, [qc]);
+  }, [qc, channelId]);
 
   useEffect(() => {
     function onClick(e: MouseEvent) { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }
