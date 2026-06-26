@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Bell, Check } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { listMyNotifications, markAllRead, markRead } from "@/lib/notifications.functions";
@@ -18,12 +18,13 @@ export function NotificationBell() {
   const { data: items = [] } = useQuery({ queryKey: ["notifications"], queryFn: () => listFn(), refetchInterval: 60_000 });
   const unread = (items as any[]).filter((n) => !n.read_at).length;
 
+  const channelId = useId();
   useEffect(() => {
-    const ch = supabase.channel("notif-rt")
+    const ch = supabase.channel(`notif-rt-${channelId}-${Math.random().toString(36).slice(2,8)}`)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" }, () => qc.invalidateQueries({ queryKey: ["notifications"] }))
       .subscribe();
     return () => { supabase.removeChannel(ch); };
-  }, [qc]);
+  }, [qc, channelId]);
 
   useEffect(() => {
     function onClick(e: MouseEvent) { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }
