@@ -121,9 +121,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <WelcomeSplash />
       <Outlet />
       <FeedbackWidget />
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );
 }
