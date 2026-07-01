@@ -27,6 +27,27 @@ function DashboardHome() {
           subtitle="Your learning pulse at a glance."
         />
 
+        {isAdmin && (
+          <section className="mb-8 rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="size-11 rounded-xl grid place-items-center bg-primary text-primary-foreground shadow-md">
+                  <ShieldCheck className="size-5" />
+                </div>
+                <div>
+                  <p className="font-ui font-bold">Admin tools</p>
+                  <p className="text-xs text-muted-foreground">Approve students, manage branding, schedule live classes and events.</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button asChild size="sm" className="rounded-full"><Link to="/dashboard/admin"><ShieldCheck className="size-3.5 mr-1" /> Admin console</Link></Button>
+                <Button asChild size="sm" variant="secondary" className="rounded-full"><Link to="/dashboard/admin/approvals"><UserCheck className="size-3.5 mr-1" /> Approvals</Link></Button>
+                <Button asChild size="sm" variant="outline" className="rounded-full"><Link to="/dashboard/admin/branding"><Sparkles className="size-3.5 mr-1" /> Branding</Link></Button>
+              </div>
+            </div>
+          </section>
+        )}
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             { icon: BookOpen, label: "Active courses", value: data?.enrollments.length ?? 0, color: "text-primary bg-primary/10" },
