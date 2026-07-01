@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
-import { getDashboardOverview } from "@/lib/app.functions";
-import { BookOpen, Brain, Award, Flame, ArrowRight } from "lucide-react";
+import { getDashboardOverview, getMyRoles } from "@/lib/app.functions";
+import { BookOpen, Brain, Award, Flame, ArrowRight, ShieldCheck, UserCheck, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,10 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 
 function DashboardHome() {
   const fn = useServerFn(getDashboardOverview);
+  const rolesFn = useServerFn(getMyRoles);
   const { data, isLoading } = useQuery({ queryKey: ["dashboard","overview"], queryFn: () => fn() });
+  const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: () => rolesFn() });
+  const isAdmin = roles.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
 
   return (
     <DashboardShell>
