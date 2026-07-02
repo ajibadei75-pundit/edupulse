@@ -156,6 +156,25 @@ function DashboardHome() {
             )}
           </section>
         </div>
+
+        {islamic.length > 0 && (
+          <section className="mt-6 bg-card border border-border rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-ui font-bold flex items-center gap-2"><BookMarked className="size-4 text-secondary" /> Islamic learning progress</h2>
+            </div>
+            <ul className="space-y-3">
+              {islamic.slice(0, 6).map((i: any) => (
+                <li key={i.id} className="flex items-center justify-between gap-3 border-b border-border/60 last:border-0 pb-3 last:pb-0">
+                  <div className="min-w-0">
+                    <p className="font-ui font-semibold text-sm truncate">{i.milestone}</p>
+                    <p className="text-xs text-muted-foreground">{i.program} · {new Date(i.created_at).toLocaleDateString()}</p>
+                  </div>
+                  {i.score != null && <span className="text-sm tabular-nums font-semibold text-secondary">{i.score}%</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </DashboardShell>
   );
