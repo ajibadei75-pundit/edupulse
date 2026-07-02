@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library, Briefcase, FolderKanban } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library, Briefcase, FolderKanban, BookMarked, Activity, UserCog } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
