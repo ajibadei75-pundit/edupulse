@@ -1227,6 +1227,7 @@ export type Database = {
         | "islamic_admin"
         | "parent"
         | "hod"
+        | "islamic_organizer"
       counseling_type: "academic" | "career" | "admission" | "personal"
       exam_type:
         | "waec"
@@ -1374,6 +1375,7 @@ export const Constants = {
         "islamic_admin",
         "parent",
         "hod",
+        "islamic_organizer",
       ],
       counseling_type: ["academic", "career", "admission", "personal"],
       exam_type: ["waec", "jamb", "neco", "post_utme", "professional", "mock"],
