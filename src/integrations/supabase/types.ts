@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          id: string
+          meta: Json | null
+          target: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json | null
+          target?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json | null
+          target?: string | null
+        }
+        Relationships: []
+      }
       ai_conversations: {
         Row: {
           created_at: string
@@ -526,6 +553,47 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      islamic_progress: {
+        Row: {
+          created_at: string
+          id: string
+          milestone: string
+          notes: string | null
+          program: string
+          recorded_by: string | null
+          score: number | null
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          milestone: string
+          notes?: string | null
+          program: string
+          recorded_by?: string | null
+          score?: number | null
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          milestone?: string
+          notes?: string | null
+          program?: string
+          recorded_by?: string | null
+          score?: number | null
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "islamic_progress_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lessons: {
         Row: {
@@ -1174,6 +1242,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_search_users: {
+        Args: { _q: string }
+        Returns: {
+          avatar_url: string
+          full_name: string
+          id: string
+          roles: string[]
+          school: string
+        }[]
+      }
+      assign_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _target: string
+        }
+        Returns: undefined
+      }
       gen_invite_code: { Args: never; Returns: string }
       get_cbt_leaderboard: {
         Args: { _limit?: number }
@@ -1202,6 +1287,13 @@ export type Database = {
       }
       is_approved: { Args: { _uid: string }; Returns: boolean }
       link_student_by_code: { Args: { _code: string }; Returns: string }
+      revoke_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _target: string
+        }
+        Returns: undefined
+      }
       set_student_approval: {
         Args: { _status: string; _student: string }
         Returns: undefined
