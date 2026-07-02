@@ -70,10 +70,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   useEffect(() => setOpen(false), [pathname]);
 
   const roleList = roles ?? [];
+  const isSuper = roleList.includes("super_admin");
   const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
   const isHod = roleList.includes("hod") || isAdmin;
   const isTutor = roleList.includes("tutor") || isHod;
   const isParent = roleList.includes("parent");
+  const isIslamic = roleList.some((r) => ["islamic_organizer","islamic_admin","admin","super_admin"].includes(r));
 
   async function signOut() {
     await qc.cancelQueries();
