@@ -42,12 +42,21 @@ const PARENT_NAV = [
   { to: "/dashboard/parent", label: "Parent dashboard", icon: Baby },
 ] as const;
 
+const ISLAMIC_NAV = [
+  { to: "/dashboard/islamic", label: "Islamic progress", icon: BookMarked },
+] as const;
+
 const ADMIN_NAV = [
   { to: "/dashboard/admin", label: "Admin console", icon: ShieldCheck },
   { to: "/dashboard/admin/approvals", label: "Student approvals", icon: UserCircle },
   { to: "/dashboard/admin/branding", label: "Branding & settings", icon: Sparkles },
   { to: "/dashboard/events", label: "Events", icon: Calendar },
   { to: "/dashboard/feedback", label: "Feedback", icon: MessageCircle },
+] as const;
+
+const SUPER_NAV = [
+  { to: "/dashboard/admin/roles", label: "Team & roles", icon: UserCog },
+  { to: "/dashboard/admin/activity", label: "Activity log", icon: Activity },
 ] as const;
 
 export function DashboardShell({ children }: { children: ReactNode }) {
