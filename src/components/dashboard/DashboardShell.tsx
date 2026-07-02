@@ -1,6 +1,6 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library, Briefcase, FolderKanban } from "lucide-react";
+import { LayoutDashboard, BookOpen, Brain, HeartHandshake, Users, Award, Trophy, UserCircle, Wallet, LogOut, Menu, X, ShieldCheck, Calendar, GraduationCap, MessageCircle, Sparkles, BookOpenCheck, Baby, Radio, Library, Briefcase, FolderKanban, BookMarked, Activity, UserCog } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,12 +42,21 @@ const PARENT_NAV = [
   { to: "/dashboard/parent", label: "Parent dashboard", icon: Baby },
 ] as const;
 
+const ISLAMIC_NAV = [
+  { to: "/dashboard/islamic", label: "Islamic progress", icon: BookMarked },
+] as const;
+
 const ADMIN_NAV = [
   { to: "/dashboard/admin", label: "Admin console", icon: ShieldCheck },
   { to: "/dashboard/admin/approvals", label: "Student approvals", icon: UserCircle },
   { to: "/dashboard/admin/branding", label: "Branding & settings", icon: Sparkles },
   { to: "/dashboard/events", label: "Events", icon: Calendar },
   { to: "/dashboard/feedback", label: "Feedback", icon: MessageCircle },
+] as const;
+
+const SUPER_NAV = [
+  { to: "/dashboard/admin/roles", label: "Team & roles", icon: UserCog },
+  { to: "/dashboard/admin/activity", label: "Activity log", icon: Activity },
 ] as const;
 
 export function DashboardShell({ children }: { children: ReactNode }) {
@@ -61,10 +70,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   useEffect(() => setOpen(false), [pathname]);
 
   const roleList = roles ?? [];
+  const isSuper = roleList.includes("super_admin");
   const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
   const isHod = roleList.includes("hod") || isAdmin;
   const isTutor = roleList.includes("tutor") || isHod;
   const isParent = roleList.includes("parent");
+  const isIslamic = roleList.some((r) => ["islamic_organizer","islamic_admin","admin","super_admin"].includes(r));
 
   async function signOut() {
     await qc.cancelQueries();
@@ -168,6 +179,40 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                     <Link key={n.to} to={n.to} className={cn(
                       "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
                       active ? "bg-accent text-accent-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+            {isIslamic && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Islamic</p>
+                {ISLAMIC_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-secondary text-secondary-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+            {isSuper && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Super admin</p>
+                {SUPER_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-primary text-primary-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
                     )}>
                       <Icon className="size-4" /> {n.label}
                     </Link>

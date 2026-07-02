@@ -1,11 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
-import { getDashboardOverview, getMyRoles } from "@/lib/app.functions";
-import { BookOpen, Brain, Award, Flame, ArrowRight, ShieldCheck, UserCheck, Sparkles } from "lucide-react";
+import { getDashboardOverview, getMyRoles, getMyProfile } from "@/lib/app.functions";
+import { getMyIslamicProgress } from "@/lib/islamic.functions";
+import { getMyApprovalStatus } from "@/lib/admin-approval.functions";
+import { BookOpen, Brain, Award, Flame, ArrowRight, ShieldCheck, UserCheck, Sparkles, Copy, BookMarked, CheckCircle2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   head: () => ({ meta: [{ title: "Dashboard — EduPulse" }] }),
@@ -15,9 +19,30 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function DashboardHome() {
   const fn = useServerFn(getDashboardOverview);
   const rolesFn = useServerFn(getMyRoles);
+  const profileFn = useServerFn(getMyProfile);
+  const islamicFn = useServerFn(getMyIslamicProgress);
+  const approvalFn = useServerFn(getMyApprovalStatus);
   const { data, isLoading } = useQuery({ queryKey: ["dashboard","overview"], queryFn: () => fn() });
   const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: () => rolesFn() });
+  const { data: profile } = useQuery({ queryKey: ["my-profile"], queryFn: () => profileFn() });
+  const { data: islamic = [] } = useQuery({ queryKey: ["my-islamic"], queryFn: () => islamicFn() });
+  const { data: approval } = useQuery({ queryKey: ["my-approval"], queryFn: () => approvalFn(), refetchInterval: 30_000 });
   const isAdmin = roles.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+
+  useEffect(() => {
+    if (!approval) return;
+    const key = "edupulse-approval-toast";
+    if (approval.approved && approval.isStudentOnly && localStorage.getItem(key) !== "yes") {
+      toast.success("Your account is approved 🎉", { description: "You now have full access to EduPulse." });
+      localStorage.setItem(key, "yes");
+    }
+  }, [approval]);
+
+  function copyCode() {
+    if (!profile?.invite_code) return;
+    navigator.clipboard.writeText(profile.invite_code);
+    toast.success("Student code copied");
+  }
 
   return (
     <DashboardShell>
@@ -26,6 +51,29 @@ function DashboardHome() {
           title={`Welcome${data?.profile?.full_name ? `, ${data.profile.full_name.split(" ")[0]}` : ""}.`}
           subtitle="Your learning pulse at a glance."
         />
+
+        <section className="mb-6 grid md:grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-border bg-card p-5 flex items-center gap-4">
+            <div className="size-11 rounded-xl grid place-items-center bg-accent/20 text-accent-foreground"><UserCheck className="size-5" /></div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs uppercase tracking-wider font-ui font-bold text-muted-foreground">Your student code</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="font-display text-xl font-black tracking-widest">{profile?.invite_code ?? "——"}</span>
+                {profile?.invite_code && <button onClick={copyCode} className="p-1.5 rounded-lg hover:bg-muted" title="Copy"><Copy className="size-3.5" /></button>}
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Share with your parent to link accounts.</p>
+            </div>
+          </div>
+          {approval?.approved && approval.isStudentOnly && (
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-center gap-4">
+              <div className="size-11 rounded-xl grid place-items-center bg-emerald-500 text-white"><CheckCircle2 className="size-5" /></div>
+              <div>
+                <p className="font-ui font-bold text-emerald-700 dark:text-emerald-300">Account approved</p>
+                <p className="text-xs text-muted-foreground">You have full access. Explore courses, CBT, live classes and more.</p>
+              </div>
+            </div>
+          )}
+        </section>
 
         {isAdmin && (
           <section className="mb-8 rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 p-5">
@@ -108,6 +156,25 @@ function DashboardHome() {
             )}
           </section>
         </div>
+
+        {islamic.length > 0 && (
+          <section className="mt-6 bg-card border border-border rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-ui font-bold flex items-center gap-2"><BookMarked className="size-4 text-secondary" /> Islamic learning progress</h2>
+            </div>
+            <ul className="space-y-3">
+              {islamic.slice(0, 6).map((i: any) => (
+                <li key={i.id} className="flex items-center justify-between gap-3 border-b border-border/60 last:border-0 pb-3 last:pb-0">
+                  <div className="min-w-0">
+                    <p className="font-ui font-semibold text-sm truncate">{i.milestone}</p>
+                    <p className="text-xs text-muted-foreground">{i.program} · {new Date(i.created_at).toLocaleDateString()}</p>
+                  </div>
+                  {i.score != null && <span className="text-sm tabular-nums font-semibold text-secondary">{i.score}%</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </DashboardShell>
   );
