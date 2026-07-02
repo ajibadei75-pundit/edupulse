@@ -52,6 +52,29 @@ function DashboardHome() {
           subtitle="Your learning pulse at a glance."
         />
 
+        <section className="mb-6 grid md:grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-border bg-card p-5 flex items-center gap-4">
+            <div className="size-11 rounded-xl grid place-items-center bg-accent/20 text-accent-foreground"><UserCheck className="size-5" /></div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs uppercase tracking-wider font-ui font-bold text-muted-foreground">Your student code</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="font-display text-xl font-black tracking-widest">{profile?.invite_code ?? "——"}</span>
+                {profile?.invite_code && <button onClick={copyCode} className="p-1.5 rounded-lg hover:bg-muted" title="Copy"><Copy className="size-3.5" /></button>}
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Share with your parent to link accounts.</p>
+            </div>
+          </div>
+          {approval?.approved && approval.isStudentOnly && (
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-center gap-4">
+              <div className="size-11 rounded-xl grid place-items-center bg-emerald-500 text-white"><CheckCircle2 className="size-5" /></div>
+              <div>
+                <p className="font-ui font-bold text-emerald-700 dark:text-emerald-300">Account approved</p>
+                <p className="text-xs text-muted-foreground">You have full access. Explore courses, CBT, live classes and more.</p>
+              </div>
+            </div>
+          )}
+        </section>
+
         {isAdmin && (
           <section className="mb-8 rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 p-5">
             <div className="flex flex-wrap items-center justify-between gap-4">
