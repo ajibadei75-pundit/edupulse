@@ -1,11 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
-import { getDashboardOverview, getMyRoles } from "@/lib/app.functions";
-import { BookOpen, Brain, Award, Flame, ArrowRight, ShieldCheck, UserCheck, Sparkles } from "lucide-react";
+import { getDashboardOverview, getMyRoles, getMyProfile } from "@/lib/app.functions";
+import { getMyIslamicProgress } from "@/lib/islamic.functions";
+import { getMyApprovalStatus } from "@/lib/admin-approval.functions";
+import { BookOpen, Brain, Award, Flame, ArrowRight, ShieldCheck, UserCheck, Sparkles, Copy, BookMarked, CheckCircle2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   head: () => ({ meta: [{ title: "Dashboard — EduPulse" }] }),
@@ -15,9 +19,30 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function DashboardHome() {
   const fn = useServerFn(getDashboardOverview);
   const rolesFn = useServerFn(getMyRoles);
+  const profileFn = useServerFn(getMyProfile);
+  const islamicFn = useServerFn(getMyIslamicProgress);
+  const approvalFn = useServerFn(getMyApprovalStatus);
   const { data, isLoading } = useQuery({ queryKey: ["dashboard","overview"], queryFn: () => fn() });
   const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: () => rolesFn() });
+  const { data: profile } = useQuery({ queryKey: ["my-profile"], queryFn: () => profileFn() });
+  const { data: islamic = [] } = useQuery({ queryKey: ["my-islamic"], queryFn: () => islamicFn() });
+  const { data: approval } = useQuery({ queryKey: ["my-approval"], queryFn: () => approvalFn(), refetchInterval: 30_000 });
   const isAdmin = roles.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+
+  useEffect(() => {
+    if (!approval) return;
+    const key = "edupulse-approval-toast";
+    if (approval.approved && approval.isStudentOnly && localStorage.getItem(key) !== "yes") {
+      toast.success("Your account is approved 🎉", { description: "You now have full access to EduPulse." });
+      localStorage.setItem(key, "yes");
+    }
+  }, [approval]);
+
+  function copyCode() {
+    if (!profile?.invite_code) return;
+    navigator.clipboard.writeText(profile.invite_code);
+    toast.success("Student code copied");
+  }
 
   return (
     <DashboardShell>
