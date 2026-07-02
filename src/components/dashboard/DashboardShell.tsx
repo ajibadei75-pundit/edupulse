@@ -186,6 +186,40 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                 })}
               </div>
             )}
+            {isIslamic && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Islamic</p>
+                {ISLAMIC_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-secondary text-secondary-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+            {isSuper && (
+              <div className="mt-4 pt-3 border-t border-border space-y-1">
+                <p className="px-3 text-[10px] font-ui font-bold uppercase tracking-wider text-muted-foreground mb-1">Super admin</p>
+                {SUPER_NAV.map((n) => {
+                  const active = pathname === n.to || pathname.startsWith(n.to + "/");
+                  const Icon = n.icon;
+                  return (
+                    <Link key={n.to} to={n.to} className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium transition-colors",
+                      active ? "bg-primary text-primary-foreground" : "text-foreground/75 hover:bg-muted hover:text-foreground"
+                    )}>
+                      <Icon className="size-4" /> {n.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </nav>
           <div className="p-3 border-t border-border">
             <button onClick={signOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-ui font-medium text-foreground/75 hover:bg-muted hover:text-destructive">
