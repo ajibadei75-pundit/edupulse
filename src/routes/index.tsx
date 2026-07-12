@@ -101,6 +101,8 @@ function HomePage() {
                 /dashboard/admin
               </Link>
             </span>
+          </motion.div>
+
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 1 }}
             className="mt-16 mx-auto max-w-md text-accent">
