@@ -40,6 +40,17 @@ function HomePage() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-32 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex justify-center mb-8"
+          >
+            <div className="inline-flex items-center gap-3 px-5 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl shadow-black/20">
+              <Logo variant="light" className="scale-125" />
+            </div>
+          </motion.div>
+
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
             <span className="relative flex h-2 w-2">
