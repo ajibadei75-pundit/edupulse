@@ -5,6 +5,8 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/ui/counter";
 import { HeartbeatLine } from "@/components/brand/HeartbeatLine";
+import { Logo } from "@/components/brand/Logo";
+import { ShieldCheck } from "lucide-react";
 import { MODULES, colorClasses } from "@/lib/modules";
 import heroImg from "@/assets/hero-students.jpg";
 import student1 from "@/assets/student-1.jpg";
@@ -38,6 +40,17 @@ function HomePage() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-32 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex justify-center mb-8"
+          >
+            <div className="inline-flex items-center gap-3 px-5 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl shadow-black/20">
+              <Logo variant="light" className="scale-125" />
+            </div>
+          </motion.div>
+
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
             <span className="relative flex h-2 w-2">
@@ -69,6 +82,27 @@ function HomePage() {
               <Link to="/counseling">Book Counseling</Link>
             </Button>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/15 backdrop-blur-sm text-xs text-white/80"
+          >
+            <ShieldCheck className="size-3.5 text-accent" />
+            <span className="font-ui font-semibold">Admin?</span>
+            <span className="text-white/70">
+              Sign in at{" "}
+              <Link to="/auth" className="underline underline-offset-2 font-semibold text-white hover:text-accent">
+                /auth
+              </Link>{" "}
+              → open{" "}
+              <Link to="/dashboard/admin" className="underline underline-offset-2 font-semibold text-white hover:text-accent">
+                /dashboard/admin
+              </Link>
+            </span>
+          </motion.div>
+
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 1 }}
             className="mt-16 mx-auto max-w-md text-accent">
