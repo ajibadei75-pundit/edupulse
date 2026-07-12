@@ -54,19 +54,31 @@ export function LiveClassBanner() {
       {top && (
         <motion.div
           key={top.id}
-          initial={{ y: -40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -40, opacity: 0 }}
+          initial={{ y: -40, opacity: 0, scale: 0.9 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: -40, opacity: 0, scale: 0.9 }}
           transition={{ type: "spring", stiffness: 280, damping: 24 }}
-          className="sticky top-0 z-40 flex justify-center px-3 pt-2"
+          className="sticky top-2 z-50 flex justify-center px-3 pt-2 pointer-events-none"
         >
-          <div className="relative flex items-center gap-3 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-600/30 pl-3 pr-2 py-2 max-w-2xl w-full sm:w-auto ring-1 ring-emerald-300/40">
-            <span className="relative grid place-items-center">
-              <span className="absolute inset-0 rounded-full bg-white/70 animate-ping" />
-              <Radio className="relative size-4" />
+          <motion.div
+            animate={{
+              boxShadow: [
+                "0 0 0 0 rgba(16,185,129,0.55), 0 10px 30px -8px rgba(16,185,129,0.5)",
+                "0 0 0 14px rgba(16,185,129,0), 0 10px 40px -6px rgba(16,185,129,0.7)",
+                "0 0 0 0 rgba(16,185,129,0.55), 0 10px 30px -8px rgba(16,185,129,0.5)",
+              ],
+              scale: [1, 1.03, 1],
+            }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="pointer-events-auto relative flex items-center gap-3 rounded-full bg-gradient-to-r from-emerald-500 via-emerald-500 to-emerald-600 text-white pl-3 pr-2 py-2 max-w-2xl w-full sm:w-auto ring-2 ring-emerald-300/60"
+          >
+            <span className="relative grid place-items-center size-6">
+              <span className="absolute inset-0 rounded-full bg-emerald-300/80 animate-ping" />
+              <span className="absolute inset-1 rounded-full bg-white/90" />
+              <Radio className="relative size-3.5 text-emerald-700" />
             </span>
-            <span className="text-xs font-ui font-bold uppercase tracking-wider">Live now</span>
-            <span className="truncate text-sm font-medium">
+            <span className="text-xs font-ui font-bold uppercase tracking-wider drop-shadow">Live now</span>
+            <span className="truncate text-sm font-medium max-w-[16rem] sm:max-w-sm">
               {top.title}
               {top.subject ? ` · ${top.subject}` : ""}
             </span>
@@ -74,19 +86,20 @@ export function LiveClassBanner() {
               href={top.meeting_url}
               target="_blank"
               rel="noreferrer noopener"
-              className="ml-2 inline-flex items-center gap-1 rounded-full bg-white/15 hover:bg-white/25 px-3 py-1 text-xs font-bold transition"
+              className="ml-2 inline-flex items-center gap-1 rounded-full bg-white text-emerald-700 hover:bg-emerald-50 px-3 py-1 text-xs font-bold transition shadow"
             >
               Join <ExternalLink className="size-3" />
             </a>
             <button
               onClick={() => setDismissed((s) => new Set(s).add(top.id))}
               aria-label="Dismiss"
-              className="ml-1 grid place-items-center size-7 rounded-full hover:bg-white/15 transition"
+              className="ml-1 grid place-items-center size-7 rounded-full hover:bg-white/20 transition"
             >
               <X className="size-3.5" />
             </button>
-          </div>
+          </motion.div>
         </motion.div>
+
       )}
     </AnimatePresence>
   );
