@@ -13,18 +13,31 @@ const SettingsSchema = z.object({
   favicon_url: z.string().max(500000).nullable().optional(),
 });
 
-export const getSiteSettings = createServerFn({ method: "GET" }).handler(async () => {
+type PublicSettings = { site_name: string; tagline: string; logo_url: string | null; favicon_url: string | null };
+type AdminSettings = PublicSettings & { support_email: string | null; support_phone: string | null; address: string | null };
+
+export const getSiteSettings = createServerFn({ method: "GET" }).handler(async (): Promise<PublicSettings> => {
   const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });
-  const { data } = await sb.from("site_settings").select("*").eq("id", true).maybeSingle();
-  return data ?? {
+  const { data } = await sb.rpc("get_public_site_settings").maybeSingle();
+  return (data as PublicSettings | null) ?? {
     site_name: "EduPulse",
     tagline: "The Heartbeat of Student Success",
-    support_email: null, support_phone: null, address: null,
     logo_url: null, favicon_url: null,
   };
 });
+
+export const getAdminSiteSettings = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<AdminSettings> => {
+    const { data } = await context.supabase.rpc("get_admin_site_settings").maybeSingle();
+    return (data as AdminSettings | null) ?? {
+      site_name: "EduPulse", tagline: "The Heartbeat of Student Success",
+      support_email: null, support_phone: null, address: null,
+      logo_url: null, favicon_url: null,
+    };
+  });
 
 export const updateSiteSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

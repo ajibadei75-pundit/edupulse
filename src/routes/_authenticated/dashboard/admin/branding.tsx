@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
-import { getSiteSettings, updateSiteSettings } from "@/lib/site-settings.functions";
+import { getAdminSiteSettings, updateSiteSettings } from "@/lib/site-settings.functions";
 import { Upload, Image as ImageIcon, Save, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 
@@ -29,7 +29,7 @@ function fileToDataUrl(file: File, maxBytes: number): Promise<string> {
 
 function BrandingPage() {
   const qc = useQueryClient();
-  const fetchSettings = useServerFn(getSiteSettings);
+  const fetchSettings = useServerFn(getAdminSiteSettings);
   const save = useServerFn(updateSiteSettings);
   const { data } = useQuery({ queryKey: ["site-settings"], queryFn: () => fetchSettings() });
   const [form, setForm] = useState<Form | null>(null);
