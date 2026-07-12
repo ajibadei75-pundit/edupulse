@@ -78,8 +78,8 @@ export const submitCbtAttempt = createServerFn({ method: "POST" })
     const { data: subject } = await context.supabase.from("cbt_subjects").select("id").eq("slug", data.subjectSlug).maybeSingle();
     if (!subject) throw new Error("Subject not found");
     const ids = data.answers.map((a) => a.questionId);
-    const { data: qs } = await context.supabase.from("cbt_questions").select("id,correct_option,explanation,question").in("id", ids);
-    const lookup = new Map((qs ?? []).map((q) => [q.id, q]));
+    const { data: qs } = await context.supabase.rpc("get_cbt_answer_keys", { _ids: ids });
+    const lookup = new Map((qs ?? []).map((q: any) => [q.id, q]));
     let score = 0;
     const review = data.answers.map((a) => {
       const q = lookup.get(a.questionId);
