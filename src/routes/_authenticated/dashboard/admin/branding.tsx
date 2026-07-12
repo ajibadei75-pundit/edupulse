@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
-import { getSiteSettings, updateSiteSettings } from "@/lib/site-settings.functions";
+import { getAdminSiteSettings, updateSiteSettings } from "@/lib/site-settings.functions";
 import { Upload, Image as ImageIcon, Save, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 
