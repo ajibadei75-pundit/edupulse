@@ -1260,6 +1260,36 @@ export type Database = {
         Returns: undefined
       }
       gen_invite_code: { Args: never; Returns: string }
+      get_admin_site_settings: {
+        Args: never
+        Returns: {
+          address: string | null
+          favicon_url: string | null
+          id: boolean
+          logo_url: string | null
+          site_name: string
+          support_email: string | null
+          support_phone: string | null
+          tagline: string
+          updated_at: string
+          updated_by: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "site_settings"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_cbt_answer_keys: {
+        Args: { _ids: string[] }
+        Returns: {
+          correct_option: string
+          explanation: string
+          id: string
+          question: string
+        }[]
+      }
       get_cbt_leaderboard: {
         Args: { _limit?: number }
         Returns: {
@@ -1276,6 +1306,15 @@ export type Database = {
         Returns: {
           invite_code: string
           phone: string
+        }[]
+      }
+      get_public_site_settings: {
+        Args: never
+        Returns: {
+          favicon_url: string
+          logo_url: string
+          site_name: string
+          tagline: string
         }[]
       }
       has_role: {
