@@ -29,7 +29,7 @@ function fileToDataUrl(file: File, maxBytes: number): Promise<string> {
 
 function BrandingPage() {
   const qc = useQueryClient();
-  const fetchSettings = useServerFn(getSiteSettings);
+  const fetchSettings = useServerFn(getAdminSiteSettings);
   const save = useServerFn(updateSiteSettings);
   const { data } = useQuery({ queryKey: ["site-settings"], queryFn: () => fetchSettings() });
   const [form, setForm] = useState<Form | null>(null);
