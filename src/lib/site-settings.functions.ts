@@ -17,14 +17,24 @@ export const getSiteSettings = createServerFn({ method: "GET" }).handler(async (
   const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });
-  const { data } = await sb.from("site_settings").select("*").eq("id", true).maybeSingle();
+  const { data } = await sb.rpc("get_public_site_settings").maybeSingle();
   return data ?? {
     site_name: "EduPulse",
     tagline: "The Heartbeat of Student Success",
-    support_email: null, support_phone: null, address: null,
     logo_url: null, favicon_url: null,
   };
 });
+
+export const getAdminSiteSettings = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data } = await context.supabase.rpc("get_admin_site_settings").maybeSingle();
+    return data ?? {
+      site_name: "EduPulse", tagline: "The Heartbeat of Student Success",
+      support_email: null, support_phone: null, address: null,
+      logo_url: null, favicon_url: null,
+    };
+  });
 
 export const updateSiteSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
