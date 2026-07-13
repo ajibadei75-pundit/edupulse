@@ -1,22 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { DashboardShell, PageTitle } from "@/components/dashboard/DashboardShell";
+import { ChangePasswordCard } from "@/components/dashboard/ChangePasswordCard";
 import { getMyRoles } from "@/lib/app.functions";
-import { ShieldOff, ShieldCheck, BookOpen, Brain, Newspaper, Users } from "lucide-react";
+import { getAdminAnalytics } from "@/lib/analytics.functions";
+import { ShieldOff, ShieldCheck, Brain, Users, UserCog, Activity, Calendar, MessageCircle, Sparkles, BarChart3, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 import { toast } from "sonner";
-
-const isAdminFn = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { data } = await context.supabase.from("user_roles").select("role").eq("user_id", context.userId);
-    return (data ?? []).map((r) => r.role);
-  });
 
 const addCbtQuestion = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -55,14 +50,27 @@ export const Route = createFileRoute("/_authenticated/dashboard/admin/")({
   component: AdminPage,
 });
 
+const MODULES = [
+  { to: "/dashboard/admin/analytics", icon: BarChart3, title: "Analytics", desc: "Platform health & feedback insights", roles: ["admin","super_admin"] },
+  { to: "/dashboard/admin/approvals", icon: UserCheck, title: "Student approvals", desc: "Review & approve new students", roles: ["admin","super_admin"] },
+  { to: "/dashboard/admin/roles", icon: UserCog, title: "Team & roles", desc: "Assign tutors, HODs and staff", roles: ["super_admin"] },
+  { to: "/dashboard/admin/activity", icon: Activity, title: "Activity log", desc: "Audit trail of admin actions", roles: ["super_admin"] },
+  { to: "/dashboard/admin/branding", icon: Sparkles, title: "Branding & settings", desc: "Logo, tagline, site identity", roles: ["super_admin","admin"] },
+  { to: "/dashboard/events", icon: Calendar, title: "Events", desc: "Create & manage events", roles: ["admin","super_admin"] },
+  { to: "/dashboard/feedback", icon: MessageCircle, title: "Feedback inbox", desc: "All student feedback", roles: ["admin","super_admin"] },
+] as const;
+
 function AdminPage() {
   const rolesFn = useServerFn(getMyRoles);
   const subjFn = useServerFn(listSubjectsForAdmin);
   const addFn = useServerFn(addCbtQuestion);
+  const analyticsFn = useServerFn(getAdminAnalytics);
   const qc = useQueryClient();
   const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: () => rolesFn() });
   const { data: subjects = [] } = useQuery({ queryKey: ["admin","subjects"], queryFn: () => subjFn() });
-  const isAdmin = (roles as string[]).some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
+  const { data: a } = useQuery({ queryKey: ["admin","analytics","mini"], queryFn: () => analyticsFn(), retry: false });
+  const roleList = roles as string[];
+  const isAdmin = roleList.some((r) => ["admin","super_admin","cbt_admin","content_admin","finance_admin","islamic_admin"].includes(r));
 
   const [form, setForm] = useState({ subjectSlug: "", question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_option: "A" as "A"|"B"|"C"|"D", explanation: "" });
 
@@ -86,29 +94,45 @@ function AdminPage() {
     );
   }
 
+  const modules = MODULES.filter((mod) => mod.roles.some((r) => roleList.includes(r)));
+
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
-        <PageTitle title="Admin console" subtitle={`Active roles: ${(roles as string[]).join(", ")}`} action={<span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/15 text-accent-foreground text-xs font-ui font-bold uppercase tracking-wider"><ShieldCheck className="size-3.5" /> Authorized</span>} />
+      <div className="p-6 sm:p-10 max-w-6xl space-y-8">
+        <PageTitle
+          title="Admin console"
+          subtitle={`Active roles: ${roleList.join(", ")}`}
+          action={<span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/15 text-accent-foreground text-xs font-ui font-bold uppercase tracking-wider"><ShieldCheck className="size-3.5" /> Authorized</span>}
+        />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          {[
-            { icon: Brain, label: "CBT subjects", value: subjects.length },
-            { icon: BookOpen, label: "Courses", value: "—" },
-            { icon: Newspaper, label: "News items", value: "—" },
-            { icon: Users, label: "Total users", value: "—" },
-          ].map((s) => (
-            <div key={s.label} className="bg-card border border-border rounded-2xl p-5">
-              <s.icon className="size-5 text-primary mb-2" />
-              <div className="font-display text-2xl font-black">{s.value}</div>
-              <div className="text-xs text-muted-foreground">{s.label}</div>
-            </div>
-          ))}
+        {/* Snapshot */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatMini icon={Users} label="Total users" value={a?.users_total} />
+          <StatMini icon={UserCheck} label="Pending approvals" value={a?.users_pending} tone="text-amber-500" />
+          <StatMini icon={Brain} label="CBT subjects" value={subjects.length} />
+          <StatMini icon={MessageCircle} label="Feedback (avg ★)" value={a?.feedback_avg_rating ?? "—"} />
         </div>
 
+        {/* Module grid */}
+        <section>
+          <h2 className="font-ui font-bold mb-3">Admin modules</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {modules.map((mod) => (
+              <Link key={mod.to} to={mod.to} className="group bg-card border border-border hover:border-primary/40 hover:shadow-md rounded-2xl p-5 transition">
+                <mod.icon className="size-5 text-primary mb-2 group-hover:scale-110 transition" />
+                <div className="font-ui font-bold">{mod.title}</div>
+                <div className="text-xs text-muted-foreground mt-0.5">{mod.desc}</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <ChangePasswordCard />
+
+        {/* CBT quick question */}
         <section className="bg-card border border-border rounded-2xl p-6">
           <h2 className="font-ui font-bold mb-1">Add CBT question</h2>
-          <p className="text-sm text-muted-foreground mb-5">Quick single-question entry. Bulk CSV upload arrives next.</p>
+          <p className="text-sm text-muted-foreground mb-5">Quick single-question entry. For bulk imports, use the Tutor console CSV tool.</p>
           <form className="grid sm:grid-cols-2 gap-4" onSubmit={(e) => { e.preventDefault(); if (form.subjectSlug && form.question) m.mutate(); }}>
             <div>
               <label className="text-sm font-ui font-medium mb-1.5 block">Subject</label>
@@ -144,5 +168,15 @@ function AdminPage() {
         </section>
       </div>
     </DashboardShell>
+  );
+}
+
+function StatMini({ icon: Icon, label, value, tone }: any) {
+  return (
+    <div className="bg-card border border-border rounded-2xl p-5">
+      <Icon className={`size-5 mb-2 ${tone ?? "text-primary"}`} />
+      <div className="font-display text-2xl font-black">{value ?? "—"}</div>
+      <div className="text-xs text-muted-foreground">{label}</div>
+    </div>
   );
 }
