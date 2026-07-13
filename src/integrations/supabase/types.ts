@@ -1112,6 +1112,9 @@ export type Database = {
           page: string | null
           rating: number | null
           status: string
+          target_id: string | null
+          target_label: string | null
+          target_type: string | null
           user_id: string | null
         }
         Insert: {
@@ -1123,6 +1126,9 @@ export type Database = {
           page?: string | null
           rating?: number | null
           status?: string
+          target_id?: string | null
+          target_label?: string | null
+          target_type?: string | null
           user_id?: string | null
         }
         Update: {
@@ -1134,6 +1140,9 @@ export type Database = {
           page?: string | null
           rating?: number | null
           status?: string
+          target_id?: string | null
+          target_label?: string | null
+          target_type?: string | null
           user_id?: string | null
         }
         Relationships: []
@@ -1260,6 +1269,7 @@ export type Database = {
         Returns: undefined
       }
       gen_invite_code: { Args: never; Returns: string }
+      get_admin_analytics: { Args: never; Returns: Json }
       get_admin_site_settings: {
         Args: never
         Returns: {
