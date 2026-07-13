@@ -55,6 +55,7 @@ const ADMIN_NAV = [
 ] as const;
 
 const SUPER_NAV = [
+  { to: "/dashboard/admin/analytics", label: "Analytics", icon: Activity },
   { to: "/dashboard/admin/roles", label: "Team & roles", icon: UserCog },
   { to: "/dashboard/admin/activity", label: "Activity log", icon: Activity },
 ] as const;

@@ -56,6 +56,7 @@ import { Route as AuthenticatedDashboardCbtSlugRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardAdminRolesRouteImport } from './routes/_authenticated/dashboard/admin/roles'
 import { Route as AuthenticatedDashboardAdminBrandingRouteImport } from './routes/_authenticated/dashboard/admin/branding'
 import { Route as AuthenticatedDashboardAdminApprovalsRouteImport } from './routes/_authenticated/dashboard/admin/approvals'
+import { Route as AuthenticatedDashboardAdminAnalyticsRouteImport } from './routes/_authenticated/dashboard/admin/analytics'
 import { Route as AuthenticatedDashboardAdminActivityRouteImport } from './routes/_authenticated/dashboard/admin/activity'
 import { Route as AuthenticatedDashboardTutorCoursesIndexRouteImport } from './routes/_authenticated/dashboard/tutor/courses/index'
 import { Route as AuthenticatedDashboardTutorCoursesCourseIdRouteImport } from './routes/_authenticated/dashboard/tutor/courses/$courseId'
@@ -322,6 +323,12 @@ const AuthenticatedDashboardAdminApprovalsRoute =
     path: '/admin/approvals',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardAdminAnalyticsRoute =
+  AuthenticatedDashboardAdminAnalyticsRouteImport.update({
+    id: '/admin/analytics',
+    path: '/admin/analytics',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardAdminActivityRoute =
   AuthenticatedDashboardAdminActivityRouteImport.update({
     id: '/admin/activity',
@@ -364,6 +371,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/admin/activity': typeof AuthenticatedDashboardAdminActivityRoute
+  '/dashboard/admin/analytics': typeof AuthenticatedDashboardAdminAnalyticsRoute
   '/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
   '/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/dashboard/admin/roles': typeof AuthenticatedDashboardAdminRolesRoute
@@ -413,6 +421,7 @@ export interface FileRoutesByTo {
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/dashboard/admin/activity': typeof AuthenticatedDashboardAdminActivityRoute
+  '/dashboard/admin/analytics': typeof AuthenticatedDashboardAdminAnalyticsRoute
   '/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
   '/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/dashboard/admin/roles': typeof AuthenticatedDashboardAdminRolesRoute
@@ -466,6 +475,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/cbt': typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/dashboard/admin/activity': typeof AuthenticatedDashboardAdminActivityRoute
+  '/_authenticated/dashboard/admin/analytics': typeof AuthenticatedDashboardAdminAnalyticsRoute
   '/_authenticated/dashboard/admin/approvals': typeof AuthenticatedDashboardAdminApprovalsRoute
   '/_authenticated/dashboard/admin/branding': typeof AuthenticatedDashboardAdminBrandingRoute
   '/_authenticated/dashboard/admin/roles': typeof AuthenticatedDashboardAdminRolesRoute
@@ -519,6 +529,7 @@ export interface FileRouteTypes {
     | '/dashboard/cbt'
     | '/dashboard/'
     | '/dashboard/admin/activity'
+    | '/dashboard/admin/analytics'
     | '/dashboard/admin/approvals'
     | '/dashboard/admin/branding'
     | '/dashboard/admin/roles'
@@ -568,6 +579,7 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/dashboard'
     | '/dashboard/admin/activity'
+    | '/dashboard/admin/analytics'
     | '/dashboard/admin/approvals'
     | '/dashboard/admin/branding'
     | '/dashboard/admin/roles'
@@ -620,6 +632,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/cbt'
     | '/_authenticated/dashboard/'
     | '/_authenticated/dashboard/admin/activity'
+    | '/_authenticated/dashboard/admin/analytics'
     | '/_authenticated/dashboard/admin/approvals'
     | '/_authenticated/dashboard/admin/branding'
     | '/_authenticated/dashboard/admin/roles'
@@ -1001,6 +1014,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAdminApprovalsRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/admin/analytics': {
+      id: '/_authenticated/dashboard/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/dashboard/admin/analytics'
+      preLoaderRoute: typeof AuthenticatedDashboardAdminAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/admin/activity': {
       id: '/_authenticated/dashboard/admin/activity'
       path: '/admin/activity'
@@ -1045,6 +1065,7 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardCbtRouteRoute: typeof AuthenticatedDashboardCbtRouteRouteWithChildren
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDashboardAdminActivityRoute: typeof AuthenticatedDashboardAdminActivityRoute
+  AuthenticatedDashboardAdminAnalyticsRoute: typeof AuthenticatedDashboardAdminAnalyticsRoute
   AuthenticatedDashboardAdminApprovalsRoute: typeof AuthenticatedDashboardAdminApprovalsRoute
   AuthenticatedDashboardAdminBrandingRoute: typeof AuthenticatedDashboardAdminBrandingRoute
   AuthenticatedDashboardAdminRolesRoute: typeof AuthenticatedDashboardAdminRolesRoute
@@ -1079,6 +1100,8 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
     AuthenticatedDashboardAdminActivityRoute:
       AuthenticatedDashboardAdminActivityRoute,
+    AuthenticatedDashboardAdminAnalyticsRoute:
+      AuthenticatedDashboardAdminAnalyticsRoute,
     AuthenticatedDashboardAdminApprovalsRoute:
       AuthenticatedDashboardAdminApprovalsRoute,
     AuthenticatedDashboardAdminBrandingRoute:
