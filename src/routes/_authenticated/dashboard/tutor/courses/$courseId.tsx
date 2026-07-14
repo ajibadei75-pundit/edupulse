@@ -39,7 +39,7 @@ function CourseEditor() {
   return (
     <DashboardShell>
       <PageFade>
-        <div className="p-6 sm:p-10 max-w-4xl">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-4xl">
           <Link to="/dashboard/tutor/courses" className="text-sm text-muted-foreground inline-flex items-center gap-1 mb-3"><ArrowLeft className="size-4" /> Back to courses</Link>
           <PageTitle title="Course lessons" subtitle="Add ordered lessons. Students see them in this order." action={
             <div className="flex gap-2">
