@@ -93,8 +93,8 @@ function HomePage() {
       </section>
 
       {/* STATS */}
-      <section className="relative -mt-16 z-10 px-6">
-        <div className="mx-auto max-w-5xl bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border grid grid-cols-2 md:grid-cols-4 p-6 sm:p-8 gap-6">
+      <section className="relative -mt-12 sm:-mt-16 z-10 px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border grid grid-cols-2 md:grid-cols-4 p-5 sm:p-8 gap-4 sm:gap-6">
           {[
             { val: 120000, suf: "+", label: "Students Enrolled", color: "text-primary" },
             { val: 450, suf: "+", label: "Premium Courses", color: "text-secondary" },
