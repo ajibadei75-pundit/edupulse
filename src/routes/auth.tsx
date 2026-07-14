@@ -169,7 +169,20 @@ function LoginPanel({ loading, setLoading, redirect }: { loading: boolean; setLo
       {method === "email" ? (
         <form onSubmit={handleEmail} className="space-y-3">
           <Field label="Email" type="email" value={email} onChange={setEmail} required />
-          <Field label="Password" type="password" value={password} onChange={setPassword} required minLength={6} />
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-sm font-ui font-medium">Password</label>
+              <button type="button" onClick={handleForgot} className="text-xs text-primary hover:underline font-semibold">Forgot password?</button>
+            </div>
+            <div className="relative">
+              <input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
+                className="w-full rounded-lg border border-input bg-background px-3 py-2.5 pr-10 outline-none focus:border-primary text-sm" />
+              <button type="button" onClick={() => setShowPw((v) => !v)} aria-label={showPw ? "Hide password" : "Show password"}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted">
+                {showPw ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
+            </div>
+          </div>
           <Button type="submit" disabled={loading} className="w-full rounded-lg font-ui font-semibold gap-2">
             {loading && <Loader2 className="size-4 animate-spin" />} Sign in
           </Button>
