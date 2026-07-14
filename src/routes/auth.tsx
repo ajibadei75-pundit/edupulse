@@ -345,6 +345,23 @@ function Field({ label, value, onChange, type = "text", required, placeholder, m
   );
 }
 
+function PasswordInput({ label, value, onChange, minLength = 6 }: { label: string; value: string; onChange: (v: string) => void; minLength?: number }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <label className="text-sm font-ui font-medium mb-1.5 block">{label}</label>
+      <div className="relative">
+        <input type={show ? "text" : "password"} value={value} onChange={(e) => onChange(e.target.value)} required minLength={minLength}
+          className="w-full rounded-lg border border-input bg-background px-3 py-2.5 pr-10 outline-none focus:border-primary text-sm" />
+        <button type="button" onClick={() => setShow((v) => !v)} aria-label={show ? "Hide password" : "Show password"}
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted">
+          {show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) {
   return (
     <div>
