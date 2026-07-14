@@ -284,7 +284,7 @@ function HomePage() {
 
       {/* FINAL CTA */}
       <section className="py-16 sm:py-24 px-4 sm:px-6">
-        <div className="mx-auto max-w-5xl gradient-hero text-white rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/30">
+        <div className="mx-auto max-w-5xl gradient-hero text-white rounded-3xl p-6 sm:p-10 md:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/30">
           <Sparkles className="absolute top-8 right-8 size-6 text-accent animate-float" aria-hidden />
           <BadgeCheck className="absolute bottom-8 left-8 size-6 text-accent/70 animate-float" style={{ animationDelay: "1s" }} aria-hidden />
           <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight text-balance">Your success story starts today.</h2>
