@@ -60,12 +60,12 @@ function HomePage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance">
+            className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance">
             Learn. Grow. <span className="text-accent">Excel.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-2xl mx-auto mt-7 font-sans text-lg sm:text-xl text-white/85 text-pretty">
+            className="max-w-2xl mx-auto mt-6 sm:mt-7 font-sans text-base sm:text-lg md:text-xl text-white/85 text-pretty">
             Academic support, CBT practice, counseling, IT skills, Islamic learning and career development — one ecosystem built for the modern African student.
           </motion.p>
 
