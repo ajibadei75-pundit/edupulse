@@ -16,7 +16,7 @@ function ActivityPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-4xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-4xl">
         <PageTitle title="Activity log" subtitle="Recent oversight events across the platform." />
         <div className="bg-card border border-border rounded-2xl divide-y divide-border">
           {data.length === 0 ? (

@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "EduPulse — The Heartbeat of Student Success" },
       { name: "description", content: "Learn. Grow. Excel. Academic support, CBT practice, counseling, IT skills, Islamic learning and career development — in one student-success ecosystem." },
       { name: "author", content: "EduPulse" },

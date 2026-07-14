@@ -30,7 +30,7 @@ function CoursesDash() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle title="Courses" subtitle="Continue your enrolled tracks or pick up something new." />
 
         <h2 className="font-ui font-bold mb-3">My courses</h2>

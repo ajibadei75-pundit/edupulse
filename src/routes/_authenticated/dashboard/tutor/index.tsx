@@ -53,7 +53,7 @@ function TutorPage() {
   return (
     <DashboardShell>
       <PageFade>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle title="Tutor console" subtitle="Manage CBT content and view platform activity." />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">

@@ -40,7 +40,7 @@ function AnalyticsPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle title="Platform analytics" subtitle="Real-time health of EduPulse — students, learning, engagement, feedback." />
 
         {isLoading ? <p className="text-muted-foreground">Loading analytics…</p> : (

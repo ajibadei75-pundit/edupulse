@@ -66,7 +66,7 @@ function EventsAdmin() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle
           title="Events"
           subtitle="Create events with unique shareable links. Track registrations and feedback."

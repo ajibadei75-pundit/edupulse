@@ -37,7 +37,7 @@ function ParentPage() {
   return (
     <DashboardShell>
       <PageFade>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle title="Parent dashboard" subtitle="Monitor your child's progress on EduPulse." />
 
         <div className="bg-card border border-border rounded-2xl p-5 mb-8">

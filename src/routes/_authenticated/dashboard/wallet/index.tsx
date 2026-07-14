@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/wallet/")({
 function WalletPage() {
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-3xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-3xl">
         <PageTitle title="Wallet & subscriptions" subtitle="Top-up, view invoices and manage premium subscriptions." />
         <div className="bg-card border border-border rounded-2xl p-10 text-center">
           <Wallet className="size-12 text-primary mx-auto mb-3" />

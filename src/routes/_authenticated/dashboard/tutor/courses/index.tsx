@@ -38,7 +38,7 @@ function TutorCoursesPage() {
   return (
     <DashboardShell>
       <PageFade>
-        <div className="p-6 sm:p-10 max-w-6xl">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
           <PageTitle title="My courses" subtitle="Author courses, add lessons, and publish to students." />
 
           <form

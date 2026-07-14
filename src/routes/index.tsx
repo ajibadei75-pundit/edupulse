@@ -38,7 +38,7 @@ function HomePage() {
           <div className="absolute bottom-32 left-24 size-3 bg-highlight rounded-full blur-lg animate-pulse" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-32 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-12 sm:pt-20 pb-24 sm:pb-32 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -60,12 +60,12 @@ function HomePage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance">
+            className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance">
             Learn. Grow. <span className="text-accent">Excel.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-2xl mx-auto mt-7 font-sans text-lg sm:text-xl text-white/85 text-pretty">
+            className="max-w-2xl mx-auto mt-6 sm:mt-7 font-sans text-base sm:text-lg md:text-xl text-white/85 text-pretty">
             Academic support, CBT practice, counseling, IT skills, Islamic learning and career development — one ecosystem built for the modern African student.
           </motion.p>
 
@@ -93,8 +93,8 @@ function HomePage() {
       </section>
 
       {/* STATS */}
-      <section className="relative -mt-16 z-10 px-6">
-        <div className="mx-auto max-w-5xl bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border grid grid-cols-2 md:grid-cols-4 p-6 sm:p-8 gap-6">
+      <section className="relative -mt-12 sm:-mt-16 z-10 px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border grid grid-cols-2 md:grid-cols-4 p-5 sm:p-8 gap-4 sm:gap-6">
           {[
             { val: 120000, suf: "+", label: "Students Enrolled", color: "text-primary" },
             { val: 450, suf: "+", label: "Premium Courses", color: "text-secondary" },
@@ -102,7 +102,7 @@ function HomePage() {
             { val: 85, suf: "M+", pre: "₦", label: "Scholarships Won", color: "text-accent-foreground" },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <div className={`font-display text-3xl sm:text-4xl font-black ${s.color}`}>
+              <div className={`font-display text-2xl sm:text-4xl font-black ${s.color}`}>
                 <Counter to={s.val} suffix={s.suf} prefix={s.pre} />
               </div>
               <div className="mt-1 text-[10px] sm:text-xs font-ui font-bold uppercase tracking-wider text-muted-foreground">{s.label}</div>
@@ -112,11 +112,11 @@ function HomePage() {
       </section>
 
       {/* ECOSYSTEM */}
-      <section className="py-24 sm:py-32 px-6">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The ecosystem</p>
-            <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight">Everything a student needs, integrated into one pulse.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">Everything a student needs, integrated into one pulse.</h2>
             <p className="mt-4 text-muted-foreground">Eight connected modules across academics, exams, skills, mentorship and opportunity.</p>
           </div>
 
@@ -147,11 +147,11 @@ function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-24 px-6 bg-muted/40">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-muted/40">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The EduPulse journey</p>
-            <h2 className="font-display text-4xl font-black tracking-tight">Three steps to your best self.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Three steps to your best self.</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -171,12 +171,12 @@ function HomePage() {
       </section>
 
       {/* SUCCESS STORIES */}
-      <section className="py-24 sm:py-32 px-6">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
               <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">Success stories</p>
-              <h2 className="font-display text-4xl font-black tracking-tight">Real students. Real outcomes.</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Real students. Real outcomes.</h2>
             </div>
             <div className="flex gap-1.5">
               {[1,2,3,4,5].map((i) => <Star key={i} className="size-5 fill-accent text-accent" />)}
@@ -221,12 +221,12 @@ function HomePage() {
       </section>
 
       {/* NEWS PREVIEW */}
-      <section className="py-24 px-6">
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
               <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">Opportunities hub</p>
-              <h2 className="font-display text-4xl font-black tracking-tight">Don't miss what matters.</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Don't miss what matters.</h2>
             </div>
             <Button asChild variant="ghost" className="font-ui font-semibold">
               <Link to="/news">View all news <ArrowRight className="ml-1 size-4" /></Link>
@@ -254,11 +254,11 @@ function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 bg-muted/40">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-muted/40">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">FAQ</p>
-            <h2 className="font-display text-4xl font-black">Common questions, clear answers.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-black">Common questions, clear answers.</h2>
           </div>
           <div className="space-y-3">
             {[
@@ -283,8 +283,8 @@ function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-24 px-6">
-        <div className="mx-auto max-w-5xl gradient-hero text-white rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/30">
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl gradient-hero text-white rounded-3xl p-6 sm:p-10 md:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/30">
           <Sparkles className="absolute top-8 right-8 size-6 text-accent animate-float" aria-hidden />
           <BadgeCheck className="absolute bottom-8 left-8 size-6 text-accent/70 animate-float" style={{ animationDelay: "1s" }} aria-hidden />
           <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight text-balance">Your success story starts today.</h2>

@@ -64,7 +64,7 @@ function LibraryPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle
           title="E-Library"
           subtitle="Notes, slides, past papers and study material — searchable and bookmarkable."
