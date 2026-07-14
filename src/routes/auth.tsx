@@ -272,11 +272,9 @@ function SignupWizard({ redirect }: { redirect?: string }) {
           <Field label="Full name" value={form.full_name} onChange={(v) => set("full_name", v)} required />
           <Field label="Email" type="email" value={form.email} onChange={(v) => set("email", v)} required />
           <Field label="Phone (optional)" type="tel" value={form.phone} onChange={(v) => set("phone", v)} placeholder="+2348012345678" />
-          <PasswordInput label="Password (min 6 chars)" value={form.password} onChange={(v) => set("password", v)} minLength={6} />
+          <PasswordInput label="Password (min 6 chars)" value={form.password} onChange={(v: string) => set("password", v)} minLength={6} />
         </div>
       )}
-
-      {false && <span />}
 
       {step === 2 && (
         <div className="space-y-3">
