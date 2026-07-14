@@ -94,9 +94,21 @@ function LoginPanel({ loading, setLoading, redirect }: { loading: boolean; setLo
   const [method, setMethod] = useState<"email"|"phone">("email");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+
+  async function handleForgot() {
+    if (!/\S+@\S+\.\S+/.test(email)) { toast.error("Enter your email first, then tap Forgot password."); return; }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + "/reset-password" });
+      if (error) throw error;
+      toast.success("Reset link sent. Check your inbox.");
+    } catch (err: any) { toast.error(err.message ?? "Could not send reset email"); }
+    finally { setLoading(false); }
+  }
 
   async function handleGoogle() {
     setLoading(true);
