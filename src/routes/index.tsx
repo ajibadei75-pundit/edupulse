@@ -38,7 +38,7 @@ function HomePage() {
           <div className="absolute bottom-32 left-24 size-3 bg-highlight rounded-full blur-lg animate-pulse" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-32 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-12 sm:pt-20 pb-24 sm:pb-32 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
