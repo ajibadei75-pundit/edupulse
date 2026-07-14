@@ -112,7 +112,7 @@ function HomePage() {
       </section>
 
       {/* ECOSYSTEM */}
-      <section className="py-24 sm:py-32 px-6">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The ecosystem</p>
@@ -147,7 +147,7 @@ function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-24 px-6 bg-muted/40">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-muted/40">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The EduPulse journey</p>
@@ -171,7 +171,7 @@ function HomePage() {
       </section>
 
       {/* SUCCESS STORIES */}
-      <section className="py-24 sm:py-32 px-6">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
@@ -221,7 +221,7 @@ function HomePage() {
       </section>
 
       {/* NEWS PREVIEW */}
-      <section className="py-24 px-6">
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
@@ -254,7 +254,7 @@ function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 bg-muted/40">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-muted/40">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">FAQ</p>
@@ -283,7 +283,7 @@ function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-24 px-6">
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-5xl gradient-hero text-white rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/30">
           <Sparkles className="absolute top-8 right-8 size-6 text-accent animate-float" aria-hidden />
           <BadgeCheck className="absolute bottom-8 left-8 size-6 text-accent/70 animate-float" style={{ animationDelay: "1s" }} aria-hidden />
