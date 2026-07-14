@@ -116,7 +116,7 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The ecosystem</p>
-            <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight">Everything a student needs, integrated into one pulse.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">Everything a student needs, integrated into one pulse.</h2>
             <p className="mt-4 text-muted-foreground">Eight connected modules across academics, exams, skills, mentorship and opportunity.</p>
           </div>
 
@@ -151,7 +151,7 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The EduPulse journey</p>
-            <h2 className="font-display text-4xl font-black tracking-tight">Three steps to your best self.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Three steps to your best self.</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -176,7 +176,7 @@ function HomePage() {
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
               <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">Success stories</p>
-              <h2 className="font-display text-4xl font-black tracking-tight">Real students. Real outcomes.</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Real students. Real outcomes.</h2>
             </div>
             <div className="flex gap-1.5">
               {[1,2,3,4,5].map((i) => <Star key={i} className="size-5 fill-accent text-accent" />)}
@@ -226,7 +226,7 @@ function HomePage() {
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
               <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">Opportunities hub</p>
-              <h2 className="font-display text-4xl font-black tracking-tight">Don't miss what matters.</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight">Don't miss what matters.</h2>
             </div>
             <Button asChild variant="ghost" className="font-ui font-semibold">
               <Link to="/news">View all news <ArrowRight className="ml-1 size-4" /></Link>
@@ -258,7 +258,7 @@ function HomePage() {
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">FAQ</p>
-            <h2 className="font-display text-4xl font-black">Common questions, clear answers.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-black">Common questions, clear answers.</h2>
           </div>
           <div className="space-y-3">
             {[
