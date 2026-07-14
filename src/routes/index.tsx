@@ -102,7 +102,7 @@ function HomePage() {
             { val: 85, suf: "M+", pre: "₦", label: "Scholarships Won", color: "text-accent-foreground" },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <div className={`font-display text-3xl sm:text-4xl font-black ${s.color}`}>
+              <div className={`font-display text-2xl sm:text-4xl font-black ${s.color}`}>
                 <Counter to={s.val} suffix={s.suf} prefix={s.pre} />
               </div>
               <div className="mt-1 text-[10px] sm:text-xs font-ui font-bold uppercase tracking-wider text-muted-foreground">{s.label}</div>
