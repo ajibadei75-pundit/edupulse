@@ -6,7 +6,7 @@ import { lovable } from "@/integrations/lovable";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Loader2, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { Loader2, ArrowRight, ArrowLeft, Check, Eye, EyeOff } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { completeOnboarding } from "@/lib/tutor.functions";
 
@@ -64,7 +64,8 @@ function AuthPage() {
 
       <main className="flex items-center justify-center p-6 sm:p-10">
         <div className="w-full max-w-sm">
-          <div className="lg:hidden mb-8"><Logo /></div>
+          <div className="flex lg:hidden justify-center mb-6"><Logo /></div>
+          <div className="hidden lg:flex justify-center mb-4 opacity-90"><Logo /></div>
           <h1 className="font-display text-3xl font-black tracking-tight">
             {mode === "login" ? "Welcome back." : "Create your account."}
           </h1>
@@ -93,9 +94,21 @@ function LoginPanel({ loading, setLoading, redirect }: { loading: boolean; setLo
   const [method, setMethod] = useState<"email"|"phone">("email");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+
+  async function handleForgot() {
+    if (!/\S+@\S+\.\S+/.test(email)) { toast.error("Enter your email first, then tap Forgot password."); return; }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + "/reset-password" });
+      if (error) throw error;
+      toast.success("Reset link sent. Check your inbox.");
+    } catch (err: any) { toast.error(err.message ?? "Could not send reset email"); }
+    finally { setLoading(false); }
+  }
 
   async function handleGoogle() {
     setLoading(true);
@@ -156,7 +169,20 @@ function LoginPanel({ loading, setLoading, redirect }: { loading: boolean; setLo
       {method === "email" ? (
         <form onSubmit={handleEmail} className="space-y-3">
           <Field label="Email" type="email" value={email} onChange={setEmail} required />
-          <Field label="Password" type="password" value={password} onChange={setPassword} required minLength={6} />
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-sm font-ui font-medium">Password</label>
+              <button type="button" onClick={handleForgot} className="text-xs text-primary hover:underline font-semibold">Forgot password?</button>
+            </div>
+            <div className="relative">
+              <input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
+                className="w-full rounded-lg border border-input bg-background px-3 py-2.5 pr-10 outline-none focus:border-primary text-sm" />
+              <button type="button" onClick={() => setShowPw((v) => !v)} aria-label={showPw ? "Hide password" : "Show password"}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted">
+                {showPw ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
+            </div>
+          </div>
           <Button type="submit" disabled={loading} className="w-full rounded-lg font-ui font-semibold gap-2">
             {loading && <Loader2 className="size-4 animate-spin" />} Sign in
           </Button>
@@ -246,7 +272,7 @@ function SignupWizard({ redirect }: { redirect?: string }) {
           <Field label="Full name" value={form.full_name} onChange={(v) => set("full_name", v)} required />
           <Field label="Email" type="email" value={form.email} onChange={(v) => set("email", v)} required />
           <Field label="Phone (optional)" type="tel" value={form.phone} onChange={(v) => set("phone", v)} placeholder="+2348012345678" />
-          <Field label="Password (min 6 chars)" type="password" value={form.password} onChange={(v) => set("password", v)} minLength={6} required />
+          <PasswordInput label="Password (min 6 chars)" value={form.password} onChange={(v: string) => set("password", v)} minLength={6} />
         </div>
       )}
 
@@ -315,6 +341,23 @@ function Field({ label, value, onChange, type = "text", required, placeholder, m
       <label className="text-sm font-ui font-medium mb-1.5 block">{label}</label>
       <input type={type} value={value} onChange={(e) => onChange(e.target.value)} required={required} placeholder={placeholder} minLength={minLength} maxLength={maxLength}
         className="w-full rounded-lg border border-input bg-background px-3 py-2.5 outline-none focus:border-primary text-sm" />
+    </div>
+  );
+}
+
+function PasswordInput({ label, value, onChange, minLength = 6 }: { label: string; value: string; onChange: (v: string) => void; minLength?: number }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <label className="text-sm font-ui font-medium mb-1.5 block">{label}</label>
+      <div className="relative">
+        <input type={show ? "text" : "password"} value={value} onChange={(e) => onChange(e.target.value)} required minLength={minLength}
+          className="w-full rounded-lg border border-input bg-background px-3 py-2.5 pr-10 outline-none focus:border-primary text-sm" />
+        <button type="button" onClick={() => setShow((v) => !v)} aria-label={show ? "Hide password" : "Show password"}
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted">
+          {show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+        </button>
+      </div>
     </div>
   );
 }

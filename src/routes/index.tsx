@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/ui/counter";
 import { HeartbeatLine } from "@/components/brand/HeartbeatLine";
 import { Logo } from "@/components/brand/Logo";
-import { ShieldCheck } from "lucide-react";
 import { MODULES, colorClasses } from "@/lib/modules";
 import heroImg from "@/assets/hero-students.jpg";
 import student1 from "@/assets/student-1.jpg";
@@ -83,25 +82,6 @@ function HomePage() {
             </Button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/15 backdrop-blur-sm text-xs text-white/80"
-          >
-            <ShieldCheck className="size-3.5 text-accent" />
-            <span className="font-ui font-semibold">Admin?</span>
-            <span className="text-white/70">
-              Sign in at{" "}
-              <Link to="/auth" className="underline underline-offset-2 font-semibold text-white hover:text-accent">
-                /auth
-              </Link>{" "}
-              → open{" "}
-              <Link to="/dashboard/admin" className="underline underline-offset-2 font-semibold text-white hover:text-accent">
-                /dashboard/admin
-              </Link>
-            </span>
-          </motion.div>
 
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 1 }}
