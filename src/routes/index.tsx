@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Quote, Star, BadgeCheck, GraduationCap, Award } from "lucide-react";
+import { ArrowRight, Quote, Star } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/ui/counter";
 import { HeartbeatLine } from "@/components/brand/HeartbeatLine";
 import { Logo } from "@/components/brand/Logo";
-import { ShieldCheck } from "lucide-react";
 import { MODULES, colorClasses } from "@/lib/modules";
 import heroImg from "@/assets/hero-students.jpg";
 import student1 from "@/assets/student-1.jpg";
