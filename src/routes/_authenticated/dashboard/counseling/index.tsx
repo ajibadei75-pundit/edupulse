@@ -31,7 +31,7 @@ function CounselingDash() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle title="Counseling" subtitle="Book a session with a vetted counselor." />
         <div className="grid lg:grid-cols-[1fr_360px] gap-6">
           <form className="bg-card border border-border rounded-2xl p-6 space-y-4" onSubmit={(e) => { e.preventDefault(); if (!when || !topic) return; m.mutate(); }}>

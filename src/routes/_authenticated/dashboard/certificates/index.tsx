@@ -15,7 +15,7 @@ function CertsPage() {
   const { data = [] } = useQuery({ queryKey: ["certificates"], queryFn: () => fn() });
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-4xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-4xl">
         <PageTitle title="Certificates" subtitle="Your verified accomplishments — every credential has a unique QR-verifiable code." />
         {(data as any[]).length === 0 ? (
           <div className="bg-card border-2 border-dashed border-border rounded-2xl p-10 text-center">

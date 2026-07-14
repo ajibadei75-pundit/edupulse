@@ -57,7 +57,7 @@ function ResultsPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle title="My results & school match" subtitle="Save your scores once. Run the matcher anytime." />
 
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6">

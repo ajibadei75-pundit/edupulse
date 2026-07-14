@@ -38,7 +38,7 @@ function CounselorPage() {
   return (
     <DashboardShell>
       <PageFade>
-        <div className="p-6 sm:p-10 max-w-5xl">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
           <PageTitle title="Counselor inbox" subtitle="Claim pending sessions and record outcomes." />
 
           {(items as any[]).length === 0 ? (

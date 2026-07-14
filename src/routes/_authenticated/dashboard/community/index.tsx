@@ -33,7 +33,7 @@ function CommunityDash() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-3xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-3xl">
         <PageTitle title="Community" subtitle="Share progress, ask questions, find your people." />
         <form className="bg-card border border-border rounded-2xl p-5 mb-6" onSubmit={(e) => { e.preventDefault(); if (content.trim()) post.mutate(); }}>
           <textarea value={content} onChange={(e) => setContent(e.target.value)} maxLength={1000} rows={3} placeholder="What are you studying today?" className="w-full rounded-lg border border-input bg-background px-3 py-2.5 outline-none focus:border-primary resize-none" />

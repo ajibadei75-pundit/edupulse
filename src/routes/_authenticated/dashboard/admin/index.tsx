@@ -98,7 +98,7 @@ function AdminPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl space-y-8">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl space-y-8">
         <PageTitle
           title="Admin console"
           subtitle={`Active roles: ${roleList.join(", ")}`}

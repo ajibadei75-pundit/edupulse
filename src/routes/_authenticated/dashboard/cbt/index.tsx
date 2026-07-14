@@ -27,7 +27,7 @@ function CbtIndex() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <PageTitle title="CBT Practice" subtitle="Pick an exam, pick a subject, take a timed drill." />
         <div className="flex flex-wrap gap-2 mb-8">
           {EXAMS.map((e) => (

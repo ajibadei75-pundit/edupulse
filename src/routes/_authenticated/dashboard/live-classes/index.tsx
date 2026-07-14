@@ -56,7 +56,7 @@ function LiveClassesPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle
           title="Live classes"
           subtitle="External sessions hosted on Zoom, Meet, or Teams — joined with one click."

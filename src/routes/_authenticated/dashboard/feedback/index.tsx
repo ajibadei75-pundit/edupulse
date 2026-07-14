@@ -16,7 +16,7 @@ function FeedbackAdmin() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle title="Site feedback" subtitle="What students are telling us." />
         {isError ? (
           <div className="bg-card border border-border rounded-2xl p-10 text-center text-muted-foreground">{(error as any)?.message ?? "You don't have admin access."}</div>

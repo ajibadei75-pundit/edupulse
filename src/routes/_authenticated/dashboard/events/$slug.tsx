@@ -31,7 +31,7 @@ function EventDetail() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-6xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
         <Link to="/dashboard/events" className="text-sm text-muted-foreground hover:text-primary">← All events</Link>
         <PageTitle title={event.title} subtitle={`/events/${event.slug}`} />
 

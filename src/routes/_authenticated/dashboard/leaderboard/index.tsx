@@ -15,7 +15,7 @@ function LeaderboardPage() {
   const { data = [] } = useQuery({ queryKey: ["leaderboard"], queryFn: () => fn() });
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-3xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-3xl">
         <PageTitle title="Leaderboard" subtitle="Top performers across all CBT drills this season." />
         <ol className="bg-card border border-border rounded-2xl divide-y divide-border overflow-hidden">
           {(data as any[]).map((r, i) => (

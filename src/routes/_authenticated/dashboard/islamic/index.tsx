@@ -40,7 +40,7 @@ function IslamicPage() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-5xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-5xl">
         <PageTitle title="Islamic learning progress" subtitle="Log memorization, tajweed and knowledge milestones. Students, parents and admins are notified." />
 
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-6">

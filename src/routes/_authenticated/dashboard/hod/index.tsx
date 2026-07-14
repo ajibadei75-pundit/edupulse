@@ -43,7 +43,7 @@ function HodPage() {
   return (
     <DashboardShell>
       <PageFade>
-        <div className="p-6 sm:p-10 max-w-6xl">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-6xl">
           <PageTitle title="Head of Department" subtitle="Oversee tutors, courses, and student performance across your department." />
 
           {needsDept ? (

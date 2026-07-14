@@ -89,7 +89,7 @@ function CbtDrill() {
     const passed = result.score / result.total >= 0.5;
     return (
       <DashboardShell>
-        <div className="p-6 sm:p-10 max-w-3xl">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-3xl">
           <div className={`rounded-2xl border-2 p-8 text-center ${passed ? "border-secondary bg-secondary/5" : "border-highlight bg-highlight/5"}`}>
             <Trophy className={`size-12 mx-auto mb-3 ${passed ? "text-secondary" : "text-highlight"}`} />
             <p className="text-sm uppercase tracking-widest font-ui font-bold text-muted-foreground">Drill complete</p>
@@ -122,7 +122,7 @@ function CbtDrill() {
 
   return (
     <DashboardShell>
-      <div className="p-6 sm:p-10 max-w-4xl">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-4xl">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
             <p className="text-xs uppercase tracking-widest font-ui font-bold text-muted-foreground">{data.subject.exam_type} · {data.subject.name}</p>
