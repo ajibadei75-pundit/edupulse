@@ -6,7 +6,7 @@ import { lovable } from "@/integrations/lovable";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Loader2, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { Loader2, ArrowRight, ArrowLeft, Check, Eye, EyeOff } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { completeOnboarding } from "@/lib/tutor.functions";
 
@@ -64,7 +64,8 @@ function AuthPage() {
 
       <main className="flex items-center justify-center p-6 sm:p-10">
         <div className="w-full max-w-sm">
-          <div className="lg:hidden mb-8"><Logo /></div>
+          <div className="flex lg:hidden justify-center mb-6"><Logo /></div>
+          <div className="hidden lg:flex justify-center mb-4 opacity-90"><Logo /></div>
           <h1 className="font-display text-3xl font-black tracking-tight">
             {mode === "login" ? "Welcome back." : "Create your account."}
           </h1>

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SchoolFinderRouteImport } from './routes/school-finder'
 import { Route as ScholarshipsRouteImport } from './routes/scholarships'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ItAcademyRouteImport } from './routes/it-academy'
 import { Route as IslamicAcademyRouteImport } from './routes/islamic-academy'
@@ -74,6 +75,11 @@ const SchoolFinderRoute = SchoolFinderRouteImport.update({
 const ScholarshipsRoute = ScholarshipsRouteImport.update({
   id: '/scholarships',
   path: '/scholarships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewsRoute = NewsRouteImport.update({
@@ -362,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
@@ -414,6 +421,7 @@ export interface FileRoutesByTo {
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
@@ -466,6 +474,7 @@ export interface FileRoutesById {
   '/islamic-academy': typeof IslamicAcademyRoute
   '/it-academy': typeof ItAcademyRoute
   '/news': typeof NewsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
@@ -520,6 +529,7 @@ export interface FileRouteTypes {
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
+    | '/reset-password'
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
@@ -572,6 +582,7 @@ export interface FileRouteTypes {
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
+    | '/reset-password'
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
@@ -623,6 +634,7 @@ export interface FileRouteTypes {
     | '/islamic-academy'
     | '/it-academy'
     | '/news'
+    | '/reset-password'
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
@@ -677,6 +689,7 @@ export interface RootRouteChildren {
   IslamicAcademyRoute: typeof IslamicAcademyRoute
   ItAcademyRoute: typeof ItAcademyRoute
   NewsRoute: typeof NewsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ScholarshipsRoute: typeof ScholarshipsRoute
   SchoolFinderRoute: typeof SchoolFinderRoute
   SponsorsRoute: typeof SponsorsRoute
@@ -704,6 +717,13 @@ declare module '@tanstack/react-router' {
       path: '/scholarships'
       fullPath: '/scholarships'
       preLoaderRoute: typeof ScholarshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/news': {
@@ -1196,6 +1216,7 @@ const rootRouteChildren: RootRouteChildren = {
   IslamicAcademyRoute: IslamicAcademyRoute,
   ItAcademyRoute: ItAcademyRoute,
   NewsRoute: NewsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ScholarshipsRoute: ScholarshipsRoute,
   SchoolFinderRoute: SchoolFinderRoute,
   SponsorsRoute: SponsorsRoute,
@@ -1204,13 +1225,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
