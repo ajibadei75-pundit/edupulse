@@ -254,10 +254,10 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
 export function PageTitle({ title, subtitle, action }: { title: string; subtitle?: string; action?: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-3 mb-8">
-      <div>
-        <h1 className="font-display text-3xl font-black tracking-tight">{title}</h1>
-        {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
+    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 mb-6 sm:mb-8 sm:flex sm:flex-wrap sm:justify-between">
+      <div className="min-w-0">
+        <h1 className="font-display text-2xl sm:text-3xl font-black tracking-tight truncate">{title}</h1>
+        {subtitle && <p className="text-xs sm:text-sm text-muted-foreground mt-1">{subtitle}</p>}
       </div>
       {action}
     </div>
