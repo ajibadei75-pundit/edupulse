@@ -99,11 +99,23 @@ export function DashboardShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
+      {/* Mobile drawer backdrop */}
+      {open && (
+        <button
+          aria-label="Close menu"
+          onClick={() => setOpen(false)}
+          className="lg:hidden fixed inset-0 top-14 z-30 bg-black/40 backdrop-blur-sm animate-fade-in"
+        />
+      )}
+
       <div className="lg:grid lg:grid-cols-[260px_1fr]">
         {/* Sidebar */}
         <aside className={cn(
-          "lg:sticky lg:top-0 lg:h-dvh lg:flex lg:flex-col bg-card border-r border-border",
-          open ? "block" : "hidden lg:flex"
+          "bg-card border-r border-border",
+          "lg:sticky lg:top-0 lg:h-dvh lg:flex lg:flex-col",
+          open
+            ? "fixed inset-y-0 top-14 left-0 z-40 w-[86vw] max-w-[300px] flex flex-col shadow-2xl animate-fade-in lg:static lg:top-0 lg:w-auto lg:max-w-none lg:shadow-none"
+            : "hidden lg:flex"
         )}>
           <div className="hidden lg:flex h-16 items-center px-6 border-b border-border"><Logo /></div>
           <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
