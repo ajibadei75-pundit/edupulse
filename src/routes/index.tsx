@@ -11,6 +11,7 @@ import heroImg from "@/assets/hero-students.jpg";
 import student1 from "@/assets/student-1.jpg";
 import student2 from "@/assets/student-2.jpg";
 import student3 from "@/assets/student-3.jpg";
+import { QuoteTicker } from "@/components/site/QuoteTicker";
 
 export const Route = createFileRoute("/")({
   head: () => ({
