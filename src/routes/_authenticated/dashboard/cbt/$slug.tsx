@@ -15,25 +15,25 @@ export const Route = createFileRoute("/_authenticated/dashboard/cbt/$slug")({
 
 type Question = { id: string; question: string; option_a: string; option_b: string; option_c: string; option_d: string };
 
-const DURATION = 10 * 60; // 10 minutes
-
 function CbtDrill() {
   const { slug } = useParams({ from: "/_authenticated/dashboard/cbt/$slug" });
   const startFn = useServerFn(startCbtAttempt);
   const submitFn = useServerFn(submitCbtAttempt);
   const { data, isLoading } = useQuery({ queryKey: ["cbt","drill",slug], queryFn: () => startFn({ data: { subjectSlug: slug, count: 10 } }) });
 
+  const durationSec = ((data?.subject as any)?.duration_minutes ?? 10) * 60;
   const [answers, setAnswers] = useState<Record<string, "A"|"B"|"C"|"D">>({});
   const [cur, setCur] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(DURATION);
+  const [secondsLeft, setSecondsLeft] = useState(durationSec);
   const [result, setResult] = useState<{ score: number; total: number; review: any[] } | null>(null);
   const [switches, setSwitches] = useState(0);
+  const [started, setStarted] = useState(false);
   const startedAt = useRef<number>(Date.now());
 
-  useEffect(() => { startedAt.current = Date.now(); }, [data?.subject?.id]);
+  useEffect(() => { startedAt.current = Date.now(); setSecondsLeft(durationSec); }, [data?.subject?.id, durationSec]);
 
   useEffect(() => {
-    if (result) return;
+    if (result || !started) return;
     const t = setInterval(() => setSecondsLeft((s) => {
       if (s <= 1) { clearInterval(t); submit(); return 0; }
       return s - 1;
