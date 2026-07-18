@@ -44,7 +44,7 @@ function CbtDrill() {
 
   // Anti-cheat: count tab switches; auto-submit at 3
   useEffect(() => {
-    if (result) return;
+    if (result || !started) return;
     function onHide() {
       if (document.hidden) {
         setSwitches((n) => {
