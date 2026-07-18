@@ -12,8 +12,51 @@ async function assertTutorOrAdmin(ctx: { supabase: any; userId: string }) {
 export const listCbtSubjects = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.from("cbt_subjects").select("id,slug,name,exam_type,question_count").order("name");
+    const { data } = await context.supabase.from("cbt_subjects").select("id,slug,name,exam_type,question_count,duration_minutes,guidelines,department_id").order("name");
     return data ?? [];
+  });
+
+export const listDepartments = createServerFn({ method: "GET" })
+  .handler(async () => {
+    const { createClient } = await import("@supabase/supabase-js");
+    const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const { data } = await sb.from("departments").select("id,name,slug,description").order("name");
+    return data ?? [];
+  });
+
+export const upsertDepartment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => z.object({
+    id: z.string().uuid().optional(),
+    name: z.string().min(2).max(80),
+    slug: z.string().min(2).max(80).regex(/^[a-z0-9-]+$/),
+    description: z.string().max(300).optional(),
+  }).parse(d))
+  .handler(async ({ context, data }) => {
+    await assertTutorOrAdmin(context);
+    const { error } = await context.supabase.from("departments").upsert(data);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const upsertCbtSubject = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => z.object({
+    id: z.string().uuid().optional(),
+    name: z.string().min(2).max(120),
+    slug: z.string().min(2).max(120).regex(/^[a-z0-9-]+$/),
+    exam_type: z.enum(["jamb","waec","neco","post_utme"]),
+    department_id: z.string().uuid().nullable().optional(),
+    duration_minutes: z.number().int().min(1).max(240).default(10),
+    guidelines: z.string().max(2000).optional(),
+  }).parse(d))
+  .handler(async ({ context, data }) => {
+    await assertTutorOrAdmin(context);
+    const { error } = await context.supabase.from("cbt_subjects").upsert(data);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
 
 export const bulkInsertQuestions = createServerFn({ method: "POST" })
