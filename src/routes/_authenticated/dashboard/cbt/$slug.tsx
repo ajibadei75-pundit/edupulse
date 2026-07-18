@@ -15,25 +15,25 @@ export const Route = createFileRoute("/_authenticated/dashboard/cbt/$slug")({
 
 type Question = { id: string; question: string; option_a: string; option_b: string; option_c: string; option_d: string };
 
-const DURATION = 10 * 60; // 10 minutes
-
 function CbtDrill() {
   const { slug } = useParams({ from: "/_authenticated/dashboard/cbt/$slug" });
   const startFn = useServerFn(startCbtAttempt);
   const submitFn = useServerFn(submitCbtAttempt);
   const { data, isLoading } = useQuery({ queryKey: ["cbt","drill",slug], queryFn: () => startFn({ data: { subjectSlug: slug, count: 10 } }) });
 
+  const durationSec = ((data?.subject as any)?.duration_minutes ?? 10) * 60;
   const [answers, setAnswers] = useState<Record<string, "A"|"B"|"C"|"D">>({});
   const [cur, setCur] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(DURATION);
+  const [secondsLeft, setSecondsLeft] = useState(durationSec);
   const [result, setResult] = useState<{ score: number; total: number; review: any[] } | null>(null);
   const [switches, setSwitches] = useState(0);
+  const [started, setStarted] = useState(false);
   const startedAt = useRef<number>(Date.now());
 
-  useEffect(() => { startedAt.current = Date.now(); }, [data?.subject?.id]);
+  useEffect(() => { startedAt.current = Date.now(); setSecondsLeft(durationSec); }, [data?.subject?.id, durationSec]);
 
   useEffect(() => {
-    if (result) return;
+    if (result || !started) return;
     const t = setInterval(() => setSecondsLeft((s) => {
       if (s <= 1) { clearInterval(t); submit(); return 0; }
       return s - 1;
@@ -44,7 +44,7 @@ function CbtDrill() {
 
   // Anti-cheat: count tab switches; auto-submit at 3
   useEffect(() => {
-    if (result) return;
+    if (result || !started) return;
     function onHide() {
       if (document.hidden) {
         setSwitches((n) => {
@@ -84,6 +84,38 @@ function CbtDrill() {
 
   if (isLoading) return <DashboardShell><div className="p-10 text-muted-foreground">Loading drill…</div></DashboardShell>;
   if (!data || !questions.length) return <DashboardShell><div className="p-10">No questions available. <Link to="/dashboard/cbt" className="text-primary">Back</Link></div></DashboardShell>;
+
+  if (!started && !result) {
+    const subj = data.subject as any;
+    return (
+      <DashboardShell>
+        <div className="p-4 sm:p-6 lg:p-10 max-w-2xl">
+          <div className="bg-card border border-border rounded-2xl p-6 sm:p-8">
+            <p className="text-xs uppercase tracking-widest font-ui font-bold text-muted-foreground">{subj.exam_type} · Instructions</p>
+            <h1 className="font-display text-3xl font-black mt-1 mb-4">{subj.name}</h1>
+            <div className="flex flex-wrap gap-3 mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-ui font-semibold"><Timer className="size-3.5" /> {subj.duration_minutes ?? 10} minutes</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-ui font-semibold">{questions.length} questions</span>
+            </div>
+            {subj.guidelines ? (
+              <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed mb-6">{subj.guidelines}</p>
+            ) : (
+              <ul className="text-sm text-foreground/80 space-y-1.5 mb-6 list-disc pl-5">
+                <li>Do not switch tabs — 3 switches auto-submit your drill.</li>
+                <li>The timer starts once you click Begin.</li>
+                <li>You may enable fullscreen for a distraction-free experience.</li>
+              </ul>
+            )}
+            <div className="flex gap-2">
+              <Button onClick={() => { setStarted(true); startedAt.current = Date.now(); }} className="rounded-lg">Begin drill</Button>
+              <Button asChild variant="outline" className="rounded-lg"><Link to="/dashboard/cbt">Cancel</Link></Button>
+            </div>
+          </div>
+        </div>
+      </DashboardShell>
+    );
+  }
+
 
   if (result) {
     const passed = result.score / result.total >= 0.5;

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StaffRouteImport } from './routes/staff'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SchoolFinderRouteImport } from './routes/school-finder'
 import { Route as ScholarshipsRouteImport } from './routes/scholarships'
@@ -62,6 +63,11 @@ import { Route as AuthenticatedDashboardAdminActivityRouteImport } from './route
 import { Route as AuthenticatedDashboardTutorCoursesIndexRouteImport } from './routes/_authenticated/dashboard/tutor/courses/index'
 import { Route as AuthenticatedDashboardTutorCoursesCourseIdRouteImport } from './routes/_authenticated/dashboard/tutor/courses/$courseId'
 
+const StaffRoute = StaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SponsorsRoute = SponsorsRouteImport.update({
   id: '/sponsors',
   path: '/sponsors',
@@ -372,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/staff': typeof StaffRoute
   '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
@@ -425,6 +432,7 @@ export interface FileRoutesByTo {
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/staff': typeof StaffRoute
   '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
@@ -478,6 +486,7 @@ export interface FileRoutesById {
   '/scholarships': typeof ScholarshipsRoute
   '/school-finder': typeof SchoolFinderRoute
   '/sponsors': typeof SponsorsRoute
+  '/staff': typeof StaffRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/events/$slug': typeof EventsSlugRoute
@@ -533,6 +542,7 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
+    | '/staff'
     | '/dashboard'
     | '/api/chat'
     | '/events/$slug'
@@ -586,6 +596,7 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
+    | '/staff'
     | '/api/chat'
     | '/events/$slug'
     | '/dashboard'
@@ -638,6 +649,7 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/school-finder'
     | '/sponsors'
+    | '/staff'
     | '/_authenticated/dashboard'
     | '/api/chat'
     | '/events/$slug'
@@ -693,11 +705,19 @@ export interface RootRouteChildren {
   ScholarshipsRoute: typeof ScholarshipsRoute
   SchoolFinderRoute: typeof SchoolFinderRoute
   SponsorsRoute: typeof SponsorsRoute
+  StaffRoute: typeof StaffRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sponsors': {
       id: '/sponsors'
       path: '/sponsors'
@@ -1220,18 +1240,9 @@ const rootRouteChildren: RootRouteChildren = {
   ScholarshipsRoute: ScholarshipsRoute,
   SchoolFinderRoute: SchoolFinderRoute,
   SponsorsRoute: SponsorsRoute,
+  StaffRoute: StaffRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
