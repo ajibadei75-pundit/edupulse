@@ -194,8 +194,11 @@ export type Database = {
       cbt_subjects: {
         Row: {
           created_at: string
+          department_id: string | null
           description: string | null
+          duration_minutes: number
           exam_type: Database["public"]["Enums"]["exam_type"]
+          guidelines: string | null
           id: string
           name: string
           question_count: number
@@ -203,8 +206,11 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          department_id?: string | null
           description?: string | null
+          duration_minutes?: number
           exam_type: Database["public"]["Enums"]["exam_type"]
+          guidelines?: string | null
           id?: string
           name: string
           question_count?: number
@@ -212,14 +218,25 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          department_id?: string | null
           description?: string | null
+          duration_minutes?: number
           exam_type?: Database["public"]["Enums"]["exam_type"]
+          guidelines?: string | null
           id?: string
           name?: string
           question_count?: number
           slug?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "cbt_subjects_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       certificates: {
         Row: {
@@ -364,6 +381,30 @@ export type Database = {
           level?: string | null
           slug?: string
           title?: string
+        }
+        Relationships: []
+      }
+      departments: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
         }
         Relationships: []
       }
