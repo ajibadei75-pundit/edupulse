@@ -112,8 +112,14 @@ function HomePage() {
         </div>
       </section>
 
+      {/* MOTIVATION */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6">
+        <QuoteTicker />
+      </section>
+
       {/* ECOSYSTEM */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
+
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <p className="font-ui text-xs uppercase tracking-[0.25em] font-bold text-primary mb-3">The ecosystem</p>
