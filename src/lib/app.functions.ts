@@ -52,7 +52,7 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
 export const listSubjectsForExam = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.from("cbt_subjects").select("id,slug,name,exam_type,question_count").order("name");
+    const { data } = await context.supabase.from("cbt_subjects").select("id,slug,name,exam_type,question_count,duration_minutes,guidelines,department_id").order("name");
     return data ?? [];
   });
 
@@ -60,7 +60,7 @@ export const startCbtAttempt = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d) => z.object({ subjectSlug: z.string(), count: z.number().int().min(5).max(50).default(10) }).parse(d))
   .handler(async ({ context, data }) => {
-    const { data: subject } = await context.supabase.from("cbt_subjects").select("id,name,exam_type").eq("slug", data.subjectSlug).maybeSingle();
+    const { data: subject } = await context.supabase.from("cbt_subjects").select("id,name,exam_type,duration_minutes,guidelines").eq("slug", data.subjectSlug).maybeSingle();
     if (!subject) throw new Error("Subject not found");
     const { data: questions } = await context.supabase.from("cbt_questions").select("id,question,option_a,option_b,option_c,option_d").eq("subject_id", subject.id).limit(data.count);
     const shuffled = [...(questions ?? [])].sort(() => Math.random() - 0.5);
